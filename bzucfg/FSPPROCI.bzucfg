@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<runner:RunnerConfiguration xmlns:runner="http://www.ibm.com/zUnit/3.0.0.0/TestRunner" id="5268d75e-647d-4b03-877c-1d8b97cf978e">
+<runner:RunnerConfiguration xmlns:runner="http://www.ibm.com/zUnit/3.0.0.0/TestRunner" id="4704e0c0-61c6-44e3-8448-09f135b37d3f">
   <runner:options contOnTestCaseError="false" contOnTestCaseFail="true" contOnTestError="false" contOnTestFail="true"/>
   <runner:testCase moduleName="TFSPPROC">
     <test name="TEST2" entry="TEST_TEST2" type="DLIP" init="BZU_INIT" term="BZU_TERM" program="FSPPROCI" commarea="0" skipTest="false" resetFile="true" stubCall="true" dummy="false"/>
