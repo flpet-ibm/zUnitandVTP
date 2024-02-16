@@ -1,0 +1,201 @@
+%PROCESS options,source,SYSTEM(IMS),macro ;
+ FSPIVAP: PROC (IOPCB_ptr, DBPCB_ptr, GIPCB_ptr, GOPCB_ptr)
+               options(main);
+     /*
+      ********************************************************@SCPYRT**
+      *                                                               *
+      *  Licensed Materials - Property of IBM                         *
+      *                                                               *
+      *  5635-A06                                                     *
+      *                                                               *
+      *      Copyright IBM Corp. 1991,1998 All Rights Reserved        *
+      *                                                               *
+      *  US Government Users Restricted Rights - Use, duplication or  *
+      *  disclosure restricted by GSA ADP Schedule contract with      *
+      *  IBM Corp.
+
+      *                                                               *
+      * This sample is a refactored version of the IMS sample         *
+      * IVP application DFSIVA64. The purpose of this refactored      *
+      * version is to demonstrate shift left testing with IDz's zUnit *
+      * and application integration testing with IBM Z Virtual Test   *
+      * Platform
+      *
+      *     Flemming Skovgaard Petersen, flemming.petersen@dk.ibm.com
+      *         Copyright IBM Corp, 2021                              *
+      ********************************************************@ECPYRT**
+      *
+      * APPLICATION  :  BMP DL/I PROGRAM
+      * TRANSACTION  :  NONE (BMP/DLI)
+      * PSB          :  DFSIVP64
+      * DATABASE     :  DFSIVD1
+      * INPUT:
+      *
+      *        TELEPHONE DIRECTORY SYSTEM
+      *        PROCESS CODE : CCCCCCCC
+      *        LAST NAME    : XXXXXXXXXX
+      *        FIRST NAME   : XXXXXXXXXX
+      *        EXTENSION#   : N-NNN-NNNN
+      *        INTERNAL ZIP : XXX/XXX
+      *
+      * CCCCCCCC = COMMAND
+      *        ADD     = INSERT ENTRY IN DB
+      *        DELETE  = DELETE ENTRY FROM DB
+      *        UPDATE  = UPDATE ENTRY FROM DB
+      *        DISPLAY = DISPLAY ENTRY
+      *        TADD    = SAME AS ADD, BUT WRITE TO OPERATOR
+      *
+      *       CHANGES:  THIS MODULE IS NEW IN IMS/ESA 3.2
+      *  APAR...  ID  PREREQ.  DATE....  DESCRIPTION...................
+      *  KNQ0115  01           11/17/91  Add COBOL lang version
+      */
+
+
+       dcl (IOPCB_ptr,
+            DBPCB_ptr,
+            GIPCB_ptr,
+            GOPCB_ptr) pointer;
+
+       DCL FSPPROCI ENTRY options(COBOL);
+       %INCLUDE   CEEIBMAW;
+       dcl plitdli entry;
+
+
+      /* DL/I FUNCTION CODES */
+
+       DCL  GET_NEXT   CHAR(4)  INIT ('GN  ');
+
+      /* DL/I CALL STATUS CODE */
+
+       DCL  END_OF_DATABASE CHAR(4)  INIT ('GB');
+
+      /* FLAGS */
+
+       DCL 01 FLAGS,
+          02  SET_DATA_FLAG  CHAR(1) INIT('0'),
+             /* 88  NO-SET-DATA       VALUE '1'. */
+          02  TADD_FLAG      Char(1) INIT('0');
+             /* 88  PROCESS-TADD      VALUE '1'.*/
+
+
+      /* DATA AREA FOR TERMINAL INPUT */
+
+       DCL 01  INPUT_AREA,
+               02  IN_BLANK  CHAR(80) INIT(''),
+
+           01  IN_TEXT based(addr(IN_BLANK)),
+               03  IN_COMMAND    CHAR(8),
+               03  IN_LAST_NAME  CHAR(10),
+               03  IN_FIRST_NAME CHAR(10),
+               03  IN_EXTENSION  CHAR(10),
+               03  IN_ZIP_CODE   CHAR(7),
+               03  INFILL        CHAR(35),
+           01  TEMP_COMMAND based(addr(IN_COMMAND)),
+               04  TEMP_IOCMD CHAR(3),
+               04  FILLER     CHAR(5);
+
+
+      /* I/O AREA FOR DATACASE HNDLING */
+
+       DCL 1 IOAREA,
+             02  IO_BLANK     CHAR(37) INIT (''),
+             02  IO_FILLER    CHAR(3) INIT(''),
+             02  IO_COMMAND   CHAR(8) INIT(''),
+
+           01  IO_DATA based(addr(IO_BLANK)),
+               03  IO_LAST_NAME   CHAR(10),
+               03  IO_FIRST_NAME  CHAR(10),
+               03  IO_EXTENSION   CHAR(10),
+               03  IO_ZIP_CODE    CHAR(7);
+
+      /* GSAM TEXT FOR ERROR CALL */
+
+       DCL 01  GS_TEXT,
+           02  GS_TEXT1           CHAR(7) INIT ('STATUS'),
+           02  GS_ERROR_STATUS    CHAR(2),
+           02  GS_TEXT2           CHAR(12) INIT ('GSAM CALL = '),
+           02  GS_ERROR_CALL      CHAR(4);
+
+
+       dcl 01  IOPCB based(iopcb_ptr),
+           02  LTERM_NAME      CHAR(8),
+           02  IO_RESERVE_IMS  CHAR(2),
+           02  IO_STATUS       CHAR(2),
+           02  CURR_DATE       CHAR(4),
+           02  CURR_TIME       CHAR(4),
+           02  IN_MSN          CHAR(4),
+           02  MODNAME         CHAR(8),
+           02  USERID          CHAR(8);
+       DCL 01  DBPCB based(dbpcb_ptr),
+           02  DBD_NAME        CHAR(8),
+           02  SEG_LEVEL       CHAR(2),
+           02  DBSTATUS        CHAR(2),
+           02  PROC_OPTIONS    CHAR(4),
+           02  RESERVE_DLI     FIXED BINARY (31,0),
+           02  SEG_NAME_FB     CHAR(8),
+           02  LENGTH_FB_KEY   FIXED BINARY (31,0),
+           02  NUMB_SENS_SEGS  FIXED BINARY (31,0),
+           02  KEY_FB_AREA     CHAR(17);
+
+       DCL 01  GIPCB based(gipcb_ptr),
+           02  DBD_NAME        CHAR(8),
+           02  SEG_LEVEL       CHAR(2),
+           02  GI_STATUS        CHAR(2),
+           02  PROC_OPTIONS    CHAR(4),
+           02  RESERVE_DLI     FIXED BINARY (31,0),
+           02  SEG_NAME_FB     CHAR(8),
+           02  LENGTH_FB_KEY   FIXED BINARY (31,0),
+           02  NUMB_SENS_SEGS  FIXED BINARY (31,0),
+           02  KEY_FB_AREA     CHAR(17);
+       DCL 01  GOPCB based(gopcb_ptr),
+           02  DBD_NAME        CHAR(8),
+           02  SEG_LEVEL       CHAR(2),
+           02  GO_STATUS        CHAR(2),
+           02  PROC_OPTIONS    CHAR(4),
+           02  RESERVE_DLI     FIXED BINARY (31,0),
+           02  SEG_NAME_FB     CHAR(8),
+           02  LENGTH_FB_KEY   FIXED BINARY (31,0),
+           02  NUMB_SENS_SEGS  FIXED BINARY (31,0),
+           02  KEY_FB_AREA     CHAR(17);
+
+   DCL      THREE    FIXED BINARY     (31,0)   INITIAL(3);
+   DCL      FOUR     FIXED BINARY     (31,0)   INITIAL(4);
+   DCL      FIVE     FIXED BINARY     (31,0)   INITIAL(5);
+   DCL      SIX      FIXED BINARY     (31,0)   INITIAL(6);
+
+           SET_DATA_FLAG = '0';
+           TADD_FLAG = '0';
+           GS_ERROR_CALL = GET_NEXT ;
+
+            CALL PLITDLI(three, GET_NEXT, GIPCB, INPUT_AREA);
+         /* CALL CEETDLI(GET_NEXT, GIPCB, INPUT_AREA); */
+
+           do while( GI_STATUS ^= END_OF_DATABASE);
+              IF (GI_STATUS = '') then do;
+                 call PROCESS_INPUT();
+              end;
+              ELSE do;
+                 call GSAM_ERROR();
+              end;
+              GS_ERROR_CALL = GET_NEXT ;
+              CALL PLITDLI(three, GET_NEXT, GIPCB, INPUT_AREA);
+          /*  CALL CEETDLI(GET_NEXT, GIPCB, INPUT_AREA); */
+           END;
+
+      /* PROCEDURE PROCESS-INPUT */
+
+       PROCESS_INPUT: proc;
+
+           fetch fspproci;
+           CALL FSPPROCI(INPUT_AREA, IOAREA, DBPCB, GIPCB, GOPCB);
+
+       end PROCESS_INPUT;
+
+       GSAM_ERROR: proc;
+           GS_ERROR_STATUS = GI_STATUS;
+           put skip list(GS_TEXT1 || GS_ERROR_STATUS || GS_TEXT2 ||
+                         GS_ERROR_CALL);
+       end GSAM_ERROR;
+
+
+ end fspivap;
