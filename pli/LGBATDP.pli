@@ -1,0 +1,108 @@
+%process source op CODEPAGE(01140);
+  LGBATDP: PROC OPTIONS(MAIN) REORDER;
+
+   /******************************************************************
+    *                                                                *
+    * LICENSED MATERIALS - PROPERTY OF IBM                           *
+    *                                                                *
+    * "RESTRICTED MATERIALS OF IBM"                                  *
+    *                                                                *
+    *                                                                *
+    * (C) COPYRIGHT IBM CORP. 2021, ALL RIGHTS RESERVED              *
+    *                                                                *
+    * US GOVERNMENT USERS RESTRICTED RIGHTS - USE, DUPLICATION,      *
+    * OR DISCLOSURE RESTRICTED BY GSA ADP SCHEDULE                   *
+    * CONTRACT WITH IBM CORPORATION                                  *
+    *                                                                *
+    *                    Inquire Customer                            *
+    *                                                                *
+    * Select customer details from DB2 table                         *
+    *                                                                *
+    *                                                                *
+    *                                                                *
+    ******************************************************************/
+
+  DCL LGBATCHF EXT ENTRY OPTIONS(COBOL);
+
+    /* Host variables for input to DB2 integer types */
+
+  DCL 01 DB2_IN_INTEGERS,
+          03 CUSTIN_CUSTNUMBER       CHAR(10),
+          03 DB2_CUSTOMERNUMBER_INT  FIXED BIN(31),
+          03 CUSTRPT_LINE            CHAR(80);
+   /*----------------------------------------------------------------*/
+
+      EXEC SQL INCLUDE LGCMAREP;
+
+   /*----------------------------------------------------------------*
+    * SQLCA DB2 communications area
+   /*----------------------------------------------------------------*/
+      EXEC SQL INCLUDE SQLCA;
+     /*      EXEC SQL INCLUDE SQLCA; */
+
+
+   /*----------------------------------------------------------------*
+    * Common code                                                    *
+    *----------------------------------------------------------------*
+    * initialize working storage variables */
+
+     put skip list('LGBATDB2 SQLCode : ', sqlcode);
+     put skip list('LGBATDB2 SQLState: ', SQLSTATE);
+
+     DB2_CUSTOMERNUMBER_INT = 1;
+     call PROCESS_RECORD();
+
+    return;
+                                                                        ------*
+
+ PROCESS_RECORD: proc;
+
+      /* initialize DB2 host variables
+
+      * ---------------------------------------------------------
+      * Obtain details from DB2
+      *----------------------------------------------------------------
+      */
+           Call GET_CUSTOMER_INFO;
+           CUSTIN_CUSTNUMBER = DB2_CUSTOMERNUMBER_INT;
+           CALL LGBATCHF( CUSTIN_CUSTNUMBER,
+                                 LGCMAREP,
+                                 CUSTRPT_LINE);
+           PUT SKIP LIST(CUSTRPT_LINE);
+           Return;
+ end process_record;
+     /*-------------------------------------------------------------*/
+
+ GET_CUSTOMER_INFO: proc;
+
+      /*
+                 , FACEBOOKPROF
+                 , :WS-FACEBOOKPROF
+      */
+          EXEC SQL
+               SELECT FIRSTNAME,
+                      LASTNAME,
+                      DATEOFBIRTH,
+                      HOUSENAME,
+                      HOUSENUMBER,
+                      POSTCODE,
+                      PHONEMOBILE,
+                      PHONEHOME,
+                      EMAILADDRESS
+               INTO  :FIRSTNAME,
+                     :LASTNAME,
+                     :DOB,
+                     :HOUSENAME,
+                     :HOUSENUM,
+                     :POSTCODE,
+                     :PHONEMOBILE,
+                     :PHONEHOME,
+                     :EMAILADDRESS
+               FROM CUSTOMER
+               WHERE CUSTOMERNUMBER = :DB2_CUSTOMERNUMBER_INT;
+     put skip list('LGBATDB2 SQLCode : ', sqlcode);
+           return;
+
+ end GET_CUSTOMER_INFO;
+
+ end LGBATDP;

@@ -323,7 +323,8 @@
            IF DBSTATUS = SPACES THEN                                    00030100
               MOVE IO-DATA TO OUT-DATA                                  00030200
               MOVE IO-COMMAND TO OUT-COMMAND                            00030300
-              MOVE MDIS TO OUT-MESSAGE                                  00030400
+             MOVE MDIS TO OUT-MESSAGE                                   00030400
+             MOVE MEND TO OUT-MESSAGE                                   00030401
               PERFORM PRINT-OUTPUT                                      00030500
            END-IF.                                                      00030600
            EXIT.                                                        00030700
