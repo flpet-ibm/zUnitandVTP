@@ -1,0 +1,120 @@
+DFSIVF34 TITLE 'IMS INSTALLATION VERIFICATION PROCEDURE : CONV. TRX'    00010000
+         PRINT ON,NOGEN                                                 00020000
+**************************** INSTALL/IVP ****************************** 00030000
+*                                                                     * 00040000
+*                   M O D U L E    P R O L O G U E                    * 00050000
+*                                                                     * 00060000
+*********************************************************************** 00070000
+*                                                                     * 00080000
+*          NAME:  DFSIVF34                                            * 00090000
+*                                                                     * 00100000
+*   DESCRIPTION:  MFS FOR TRANCD IVTCB - CONVERSATIONAL HDAM/VSAM     * 00110000
+*                                                                     * 00120000
+**************************************************************@SCPYRT** 00130000
+*                                                                     * 00140000
+*  Licensed Materials - Property of IBM                               * 00150000
+*                                                                     * 00160000
+*  5635-A06                                                           * 00170000
+*                                                                     * 00180000
+*      Copyright IBM Corp. 1991,1998 All Rights Reserved              * 00190000
+*                                                                     * 00200000
+*  US Government Users Restricted Rights - Use, duplication or        * 00210000
+*  disclosure restricted by GSA ADP Schedule contract with            * 00220000
+*  IBM Corp.                                                          * 00230000
+*                                                                     * 00240000
+**************************************************************@ECPYRT** 00250000
+*                                                                     * 00260000
+*        STATUS:  IMS 3.2                                             * 00270000
+*                                                                     * 00280000
+*   MODULE TYPE:  MFS                                                 * 00290000
+*                                                                     * 00300000
+*       CHANGES:  THIS MODULE IS NEW IN IMS/ESA 3.2                   * 00310000
+*  APAR...  ID  PREREQ.  DATE....  DESCRIPTION......................  * 00320000
+*  KNQ0115  01           11/17/91  ADD COBOL LANG. VERSION            * 00330000
+*                                                                     * 00340000
+*---+----1----+----2----+----3----+----4----+----5----+----6----+----7* 00350000
+* DEFAULT TRAN:   IVTCB                                                 00360000
+*         PSB :   DFSIVP34                                              00370000
+* DEVICE:         3277 MOD 2                                            00380000
+* DATABASE:       DFSIVD2                                               00390000
+* SYSTEM:         CONVERSATIONAL                                        00400000
+*                 SINGLE SEGMENT/SINGLE TRANSMISSION INPUT              00410000
+*                 SINGLE SEGMENT OUTPUT                                 00420000
+* * * * * * * * * *                                                     00430000
+IVTCB    MSG   TYPE=OUTPUT,SOR=(IVTCBF,IGNORE),NXT=IVTCBMI1             00440000
+         SEG                                                            00450000
+         MFLD  MSG,LTH=40                                               00460000
+         MFLD  CMD,LTH=8                                                00470000
+         MFLD  NAME1,LTH=10                                             00480000
+         MFLD  NAME2,LTH=10                                             00490000
+         MFLD  EXT#,LTH=10                                              00500000
+         MFLD  ZIP,LTH=7                                                00510000
+         MFLD  SEGNO,LTH=4                                              00520000
+         MFLD  (SDATE,DATE2Y4)                                          00530000
+         MSGEND                                                         00540000
+IVTCBMI1 MSG   TYPE=INPUT,SOR=(IVTCBF,IGNORE),NXT=IVTCBMO2              00550000
+         SEG                                                            00560000
+         MFLD  'IVTCB     ',LTH=10                                      00570000
+         MFLD  CMD,LTH=8                                                00580000
+         MFLD  NAME1,LTH=10                                             00590000
+         MFLD  NAME2,LTH=10                                             00600000
+         MFLD  EXT#,LTH=10                                              00610000
+         MFLD  ZIP,LTH=7                                                00620000
+         MSGEND                                                         00630000
+IVTCBMO2 MSG   TYPE=OUTPUT,SOR=(IVTCBF,IGNORE),NXT=IVTCBMI2             00640000
+         SEG                                                            00650000
+         MFLD  MSG,LTH=40                                               00660000
+         MFLD  CMD,LTH=8                                                00670000
+         MFLD  NAME1,LTH=10                                             00680000
+         MFLD  NAME2,LTH=10                                             00690000
+         MFLD  EXT#,LTH=10                                              00700000
+         MFLD  ZIP,LTH=7                                                00710000
+         MFLD  SEGNO,LTH=4                                              00720000
+         MFLD  (SDATE,DATE2Y4)                                          00730000
+         MSGEND                                                         00740000
+IVTCBMI2 MSG   TYPE=INPUT,SOR=(IVTCBF,IGNORE),NXT=IVTCBMO2              00750000
+         SEG                                                            00760000
+         MFLD  '    ',LTH=4                                             00770000
+         MFLD  CMD,LTH=8                                                00780000
+         MFLD  NAME1,LTH=10                                             00790000
+         MFLD  NAME2,LTH=10                                             00800000
+         MFLD  EXT#,LTH=10                                              00810000
+         MFLD  ZIP,LTH=7                                                00820000
+         MSGEND                                                         00830000
+IVTCBF   FMT                                                            00840000
+         DEV   TYPE=(3270,2),FEAT=IGNORE,SYSMSG=SYSMSGA,DSCA=X'00E0'    00850000
+         DIV   TYPE=INOUT                                               00860000
+         DPAGE CURSOR=((10,34))                                         00870000
+         DFLD  '**************************************************',   X00880000
+               ATTR=PROT,POS=(2,14),LTH=50                              00890000
+         DFLD  '*     IMS INSTALLATION VERIFICATION PROCEDURE    *',   X00900000
+               ATTR=PROT,POS=(3,14),LTH=50                              00910000
+         DFLD  '**************************************************',   X00920000
+               ATTR=PROT,POS=(4,14),LTH=50                              00930000
+         DFLD  'TRANSACTION TYPE : CONVERSATIONAL',POS=(7,40),LTH=33,  X00940000
+               ATTR=PROT                                                00950000
+         DFLD  'DATE             :',ATTR=PROT,POS=(8,40),LTH=18         00960000
+SDATE    DFLD  POS=(8,59),LTH=10,ATTR=PROT                              00970000
+         DFLD  'PROCESS  CODE  (*1) :',ATTR=PROT,POS=(10,10),LTH=21     00980000
+CMD      DFLD  POS=(10,34),LTH=8,ATTR=(HI,MOD)                          00990000
+         DFLD  '(*1) PROCESS CODE ',ATTR=PROT,POS=(11,60),LTH=18        01000000
+         DFLD  'LAST  NAME          :',ATTR=PROT,POS=(12,10),LTH=21     01010000
+NAME1    DFLD  POS=(12,34),LTH=10,ATTR=(HI,MOD)                         01020000
+         DFLD  '       ADD        ',ATTR=PROT,POS=(12,60),LTH=18        01030000
+         DFLD  '       DELETE     ',ATTR=PROT,POS=(13,60),LTH=18        01040000
+         DFLD  'FIRST  NAME         :',ATTR=PROT,POS=(14,10),LTH=21     01050000
+NAME2    DFLD  POS=(14,34),LTH=10,ATTR=(HI,MOD)                         01060000
+         DFLD  '       UPDATE     ',ATTR=PROT,POS=(14,60),LTH=18        01070000
+         DFLD  '       DISPLAY    ',ATTR=PROT,POS=(15,60),LTH=18        01080000
+         DFLD  'EXTENSION  NUMBER   :',ATTR=PROT,POS=(16,10),LTH=21     01090000
+EXT#     DFLD  POS=(16,34),LTH=10,ATTR=(HI,MOD)                         01100000
+         DFLD  '       TADD       ',ATTR=PROT,POS=(16,60),LTH=18        01110000
+         DFLD  '       END        ',ATTR=PROT,POS=(17,60),LTH=18        01120000
+         DFLD  'INTERNAL  ZIP CODE  :',ATTR=PROT,POS=(18,10),LTH=21     01130000
+ZIP      DFLD  POS=(18,34),LTH=7,ATTR=(HI,MOD)                          01140000
+MSG      DFLD  POS=(21,10),LTH=40,ATTR=PROT                             01150000
+         DFLD  'SEGMENT# :',ATTR=PROT,POS=(21,60),LTH=10                01160000
+SEGNO    DFLD  POS=(21,72),LTH=4,ATTR=PROT                              01170000
+SYSMSGA  DFLD  POS=(23,1),LTH=79,ATTR=HI                                01180000
+         FMTEND                                                         01190000
+         END                                                            01200000
