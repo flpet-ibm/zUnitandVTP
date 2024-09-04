@@ -157,7 +157,7 @@
            02  NUMB-SENS-SEGS  PIC  9(4).                               00015700
            02  KEY-FB-AREA     PIC  X(17).                              00015800
                                                                         00015900
-       PROCEDURE DIVISION USING IOPCB.                                  00016000
+       PROCEDURE DIVISION USING IOPCB, DBPCB, GIPCB, GOPCB.             00016000
                                                                         00016100
       * ON ENTRY IMS PASSES ADDRESSES FOR IOPCB, DBPCB, GIPCB AND GOPCB 00016200
                                                                         00016300
