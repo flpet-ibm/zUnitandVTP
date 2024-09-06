@@ -1,0 +1,39 @@
+*Synchronize PDS Libraries - Template
+*Project name in AD Build Client, PDS(MVS), PDS Library name on the host, Virtual folder in AD Build Client, Members type within Virtual Folder , z/OS connection name as defined in AD Build Configuration 
+*Example:
+*MyProject, PDS(MVS), ITLS.COBOL, zOS Cobol, COBOL_MVS, zOSPRODHOST
+
+
+*Synchronize against Endevor SCM
+*Project name in AD Build Client, Endevor, Environment.System.Subsystem.Type.Stage, Virtual folder in AD Build Client, Members type within Virtual Folder, z/OS connection name 
+*Example:
+*MyProject Endevor, SMPLTEST.EZLPROJ.EZLCOMP.COBOL.T, zOS Cobol, COBOL_MVS, zOSPRODHOST 
+
+*Synchronize against Changeman SCM Baseline
+*Project name in AD Build Client, CHANGEMAN BASELINE, Changeman Baseline Libray name on the host, Virtual folder in AD Build Client, Members type within Virtual Folder, z/OS connection name as defined in AD Build Configuration, ChangeMan Application Name
+*Example
+*MyProject, CHANGEMAN BASELINE, EZL.SERENA.SYNC.EZLX.COB, zOS Cobol, COBOL_MVS, zOSPRODHOST, EZLX *
+
+
+*Synchronize against Changeman SCM Packages
+*Project name in AD Build Client, CHANGEMAN PACKAGE, Changeman Package name on the host, Virtual folder in AD Build Client, Members type within Virtual Folder, z/OS connection name as defined in AD Build Configuration
+*Example
+M*yProject, CHANGEMAN PACKAGE, EZLX000020, zOS Cobol, COBOL_MVS, zOSPRODHOST
+
+
+*Synchronize against Local/Remote Folders
+*Project name in AD Build Client, LOCAL_REMOTE, Full path of the folder where the sources exist, Virtual folder in AD Build Client, Members type within Virtual Folder,(optional)Filter the members by name, extensions 
+
+*Example not using extensions. The entire folder's content is synchronized
+*MyProject, LOCAL_REMOTE, C:\IBM AD\Mainframe Sources\Local Sources, zOS Cobol, COBOL_MVS
+
+*Examples using filtering(for member names, extensions included)
+*MyProject,LOCAL_REMOTE,C:\IBM AD\Mainframe Sources\Local Sources,zOS Cobol,COBOL_MVS,filter(*.cbl | *.asm)
+    *This line synchronizes only the files with extensions CBL and ASM
+
+Flemming_Samples,LOCAL_REMOTE,C:\IBM AD\Git\zUnitandVTP,BMS,BMS,filter(*.bms)
+Flemming_Samples,LOCAL_REMOTE,C:\IBM AD\Git\zUnitandVTP,COBOL Includes,COPY,filter(*.cpy)
+Flemming_Samples,LOCAL_REMOTE,C:\IBM AD\Git\zUnitandVTP,zOS Cobol,COBOL_MVS,filter(*.cbl)
+    *This line synchronizes the files that start with ABC, ends with ABC, starts with M and ends with B and the file named SOURCE 
+
+
