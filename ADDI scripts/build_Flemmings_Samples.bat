@@ -1,20 +1,27 @@
-echo on
+@echo off
 set GITFOLDER=C:\IBM AD\Git\zUnitandVTP
 set GITURL=git@github.com:flpet-ibm/zUnitandVTP.git
 set ADDIPROJ=Flemmings_Samples
-set ADDIINST="C:\Program Files\IBM Application Discovery and Delivery Intelligence"
-pushd %1
+set ADDIROOT=C:\IBM AD\Mainframe Projects
+set ADDIINST=C:\Program Files\IBM Application Discovery and Delivery Intelligence
+pushd %~dp0
 IF EXIST "%GITFOLDER%" (
-   cd /d "%GITFOLDER%
+   cd /d "%GITFOLDER%"
+   echo Pulling Git repo into %GITFOLDER%
    git pull
 ) ELSE (
+   echo Creating folder for  repo at %GITFOLDER%
    mkdir "%GITFOLDER%"
-   cd /d "%GITFOLDER%
+   cd /d "%GITFOLDER%"
    cd ..
+   echo Cloning Git repo from %GITURL%
    git clone %GITURL%
-)i
+)
 popd
-copy "%GITFOLDER%\ADDI Config\PSBmap.txt" "C:\IBM AD\Mainframe Projects\%ADDIPROJ%"
+echo Copying PSB Mapping file to %ADDIROOT%\%ADDIPROJ%
+copy "%GITFOLDER%\ADDI Config\PSBmap.txt" "%ADDIROOT%\%ADDIPROJ%"
 set BCCMD="%ADDIINST%\IBM Application Discovery Build Client\Bin\Release\IBMApplicationDiscoveryBuildClient"
+echo Synchronzing ADDI project %ADDIPROJ%
 %BCCMD%  /umm1 %ADDIPROJ%
+echo Performing Make for ADDI project %ADDIPROJ%
 %BCCMD%  /m1 %ADDIPROJ% /m2 y /m3 y
