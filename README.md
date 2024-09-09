@@ -19,4 +19,5 @@ To add to ADDI :
   - synchronize the files intot he ADDI project
   - Copy the PSBmap.txt to the root of the project folder
   - Run a Make operation in ADDI.
+- Add the folder where the Git repos are cloned to the File Service in ADDI with the  Admin web UI (https://localhost:9443/ad/admin/configure?tab=environments). In my sample I needed to add C:\IBM AD\Git.
 - Rerun the script every time you have commited new changes to the Git Repo in Github.
