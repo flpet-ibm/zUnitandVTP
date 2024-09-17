@@ -1,7 +1,9 @@
 # zUnitandVTP
 This sample code can be use to demo zUnit for IMS.
 
-Also this is a useful example of code IMS support in ADDI
+Also this is a useful example of code IMS support in ADDI.
+
+The installation is a bit of a catch-22, as the scripts will clone the Git repo to your ADDI Server, but the script do the close is in the repo. So how to get the script to the server? You can download the whole repo by using "Download as Zip", and from there extract the ADDI scripts/build_Flemmings_Samples.bat and run that. 
 
 To add to ADDI :
 - Create a project in ADDI
