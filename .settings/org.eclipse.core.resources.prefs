@@ -1,4 +1,11 @@
 eclipse.preferences.version=1
+encoding//cobol/DFSSAM1.cbl=UTF-8
+encoding//cobol/DFSSAM2.cbl=UTF-8
+encoding//cobol/DFSSAM3.cbl=UTF-8
+encoding//cobol/DFSSAM4.cbl=UTF-8
+encoding//cobol/DFSSAM5.cbl=UTF-8
+encoding//cobol/DFSSAM6.cbl=UTF-8
+encoding//cobol/DFSSAM7.cbl=UTF-8
 encoding//psb/DFSIVP64.psb=UTF-8
 encoding//testcase/TFILLER0.cbl=UTF-8
 encoding//testcase/TFSPPROC.cbl=UTF-8
