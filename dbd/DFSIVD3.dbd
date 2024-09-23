@@ -1,0 +1,53 @@
+**************************** INSTALL/IVP ****************************** 00010000
+*                                                                     * 00020000
+*                   M O D U L E    P R O L O G U E                    * 00030000
+*                                                                     * 00040000
+*********************************************************************** 00050000
+*                                                                     * 00060000
+*          NAME:  DFSIVD3                                             * 00070000
+*                                                                     * 00080000
+*   DESCRIPTION:  FAST PATH DEDB                                      * 00090000
+*                                                                     * 00100000
+**************************************************************@SCPYRT** 00110000
+*                                                                     * 00120000
+*  Licensed Materials - Property of IBM                               * 00130000
+*                                                                     * 00140000
+*  5635-A06                                                           * 00150000
+*                                                                     * 00160000
+*      Copyright IBM Corp. 1974,1998 All Rights Reserved              * 00170000
+*                                                                     * 00180000
+*  US Government Users Restricted Rights - Use, duplication or        * 00190000
+*  disclosure restricted by GSA ADP Schedule contract with            * 00200000
+*  IBM Corp.                                                          * 00210000
+*                                                                     * 00220000
+**************************************************************@ECPYRT** 00230000
+*                                                                     * 00240000
+*        STATUS:  IMS/ESA 3.1                                         * 00250000
+*                                                                     * 00260000
+*   MODULE TYPE:  ASSEMBLER                                           * 00270000
+*                                                                     * 00280000
+*       CHANGES:  PROLOGUE ADDED AND MINOR CHANGES FOR 3.1            * 00290000
+*                                                                     * 00300000
+*---+----1----+----2----+----3----+----4----+----5----+----6----+----7* 00310000
+*---------------------------------------------------------------------* 00320000
+*                                                                     * 00330000
+*  SEGMENT DESCRIPTION                                                * 00340000
+*    ROOT ONLY DATABASE                                               * 00350000
+*      BYTES  1-2   LL                                                * 00360000
+*      BYTES  3-12  LAST NAME (CHARACTER) - KEY                       * 00370000
+*      BYTES  13-22 FIRST NAME (CHARACTER)                            * 00380000
+*      BYTES  23-32 INTERNAL PHONE NUMBER (NUMERIC)                   * 00390000
+*      BYTES  33-39 INTERNAL ZIP (CHARACTER)                          * 00400000
+*      BYTES  40-42 RESERVED                                          * 00410000
+*                                                                     * 00420000
+*---------------------------------------------------------------------* 00430000
+         DBD   NAME=IVPDB3,ACCESS=DEDB,RMNAME=DBFHDC40                  00440000
+DS0      AREA  DD1=DFSIVD3A,DEVICE=3380,SIZE=512,                      X00450000
+               ROOT=(30,5),UOW=(20,5)                                   00460000
+DS1      AREA  DD1=DFSIVD3B,DEVICE=3380,SIZE=512,                      X00470000
+               ROOT=(30,5),UOW=(20,5)                                   00480000
+         SEGM  NAME=A1111111,PARENT=0,BYTES=(42,42)                     00490000
+         FIELD NAME=(A1111111,SEQ,U),BYTES=010,START=00003,TYPE=C       00500000
+         DBDGEN                                                         00510000
+         FINISH                                                         00520000
+         END                                                            00530000

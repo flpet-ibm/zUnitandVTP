@@ -1,0 +1,39 @@
+**************************** INSTALL/IVP ****************************** 00010000
+*                                                                     * 00020000
+*                   M O D U L E    P R O L O G U E                    * 00030000
+*                                                                     * 00040000
+*********************************************************************** 00050000
+*                                                                     * 00060000
+*          NAME:  DFSIVD1I                                            * 00070000
+*                                                                     * 00080000
+*   DESCRIPTION:  HIDAM INDEX DBD                                     * 00090000
+*                                                                     * 00100000
+**************************************************************@SCPYRT** 00110000
+*                                                                     * 00120000
+*  Licensed Materials - Property of IBM                               * 00130000
+*                                                                     * 00140000
+*  5635-A06                                                           * 00150000
+*                                                                     * 00160000
+*      Copyright IBM Corp. 1989,1998 All Rights Reserved              * 00170000
+*                                                                     * 00180000
+*  US Government Users Restricted Rights - Use, duplication or        * 00190000
+*  disclosure restricted by GSA ADP Schedule contract with            * 00200000
+*  IBM Corp.                                                          * 00210000
+*                                                                     * 00220000
+**************************************************************@ECPYRT** 00230000
+*                                                                     * 00240000
+*        STATUS:  IMS/ESA 3.1                                         * 00250000
+*                                                                     * 00260000
+*   MODULE TYPE:  ASSEMBLER                                           * 00270000
+*                                                                     * 00280000
+*       CHANGES:  NEW FOR 3.1                                         * 00290000
+*                                                                     * 00300000
+*---+----1----+----2----+----3----+----4----+----5----+----6----+----7* 00310000
+  DBD    NAME=IVPDB1I,ACCESS=(INDEX,VSAM,PROT)                          00320000
+  DATASET DD1=DFSIVD1I,DEVICE=3380,SIZE=2048                            00330000
+  SEGM   NAME=A1,PARENT=0,BYTES=10                                      00340000
+  FIELD  NAME=(A1,SEQ,U),BYTES=010,START=00001,TYPE=C                   00350000
+  LCHILD NAME=(A1111111,IVPDB1),INDEX=A1111111                          00360000
+  DBDGEN                                                                00370000
+  FINISH                                                                00380000
+  END                                                                   00390000

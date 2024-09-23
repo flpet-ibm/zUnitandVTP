@@ -1,0 +1,50 @@
+**************************** INSTALL/IVP ****************************** 00010000
+*                                                                     * 00020000
+*                   M O D U L E    P R O L O G U E                    * 00030000
+*                                                                     * 00040000
+*********************************************************************** 00050000
+*                                                                     * 00060000
+*          NAME:  DFSIVD1                                             * 00070000
+*                                                                     * 00080000
+*   DESCRIPTION:  HIDAM/OSAM DBD                                      * 00090000
+*                                                                     * 00100000
+**************************************************************@SCPYRT** 00110000
+*                                                                     * 00120000
+*  Licensed Materials - Property of IBM                               * 00130000
+*                                                                     * 00140000
+*  5635-A06                                                           * 00150000
+*                                                                     * 00160000
+*      Copyright IBM Corp. 1974,1998 All Rights Reserved              * 00170000
+*                                                                     * 00180000
+*  US Government Users Restricted Rights - Use, duplication or        * 00190000
+*  disclosure restricted by GSA ADP Schedule contract with            * 00200000
+*  IBM Corp.                                                          * 00210000
+*                                                                     * 00220000
+**************************************************************@ECPYRT** 00230000
+*                                                                     * 00240000
+*        STATUS:  IMS/ESA 3.1                                         * 00250000
+*                                                                     * 00260000
+*   MODULE TYPE:  ASSEMBLER                                           * 00270000
+*                                                                     * 00280000
+*       CHANGES:  CHANGED TO HIDAM/OSAM FOR 3.1                       * 00290000
+*                                                                     * 00300000
+*---+----1----+----2----+----3----+----4----+----5----+----6----+----7* 00310000
+*---------------------------------------------------------------------* 00320000
+*                                                                     * 00330000
+*  SEGMENT DESCRIPTION                                                * 00340000
+*    ROOT ONLY DATABASE                                               * 00350000
+*      BYTES  1-10  LAST NAME (CHARACTER) - KEY                       * 00360000
+*      BYTES  11-20 FIRST NAME (CHARACTER)                            * 00370000
+*      BYTES  21-30 INTERNAL PHONE NUMBER (NUMERIC)                   * 00380000
+*      BYTES  31-37 INTERNAL ZIP (CHARACTER)                          * 00390000
+*      BYTES  38-40 RESERVED                                          * 00400000
+*                                                                     * 00410000
+*---------------------------------------------------------------------* 00420000
+  DBD    NAME=IVPDB1,ACCESS=(HIDAM,OSAM)                                00430000
+  DATASET DD1=DFSIVD1,DEVICE=3380,SIZE=2048                             00440000
+  SEGM   NAME=A1111111,PARENT=0,BYTES=40,RULES=(LLV,LAST),PTR=(TB,CTR)  00450000
+  FIELD  NAME=(A1111111,SEQ,U),BYTES=010,START=00001,TYPE=C             00460000
+  LCHILD NAME=(A1,IVPDB1I),POINTER=INDX,RULES=LAST                      00470000
+  DBDGEN                                                                00480000
+  FINISH                                                                00490000
+  END                                                                   00500000

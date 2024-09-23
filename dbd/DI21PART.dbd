@@ -1,0 +1,31 @@
+*                                                                       00010000
+**************************************************************@SCPYRT** 00020000
+*                                                                     * 00030000
+*  Licensed Materials - Property of IBM                               * 00040000
+*                                                                     * 00050000
+*  5635-A06                                                           * 00060000
+*                                                                     * 00070000
+*      Copyright IBM Corp. 1974,1998 All Rights Reserved              * 00080000
+*                                                                     * 00090000
+*  US Government Users Restricted Rights - Use, duplication or        * 00100000
+*  disclosure restricted by GSA ADP Schedule contract with            * 00110000
+*  IBM Corp.                                                          * 00120000
+*                                                                     * 00130000
+**************************************************************@ECPYRT** 00140000
+*                                                                       00150000
+         DBD   NAME=DI21PART,ACCESS=(HISAM,VSAM)                        00160000
+      DATASET  DD1=DI21PART,DEVICE=3380,OVFLW=DI21PARO,                X00170000
+               SIZE=(2048,2048),RECORD=(678,678)                        00180000
+      SEGM     NAME=PARTROOT,PARENT=0,BYTES=50,FREQ=250                 00190000
+      FIELD    NAME=(PARTKEY,SEQ),TYPE=C,BYTES=17,START=1               00200000
+      SEGM     NAME=STANINFO,PARENT=PARTROOT,BYTES=85,FREQ=1            00210000
+      FIELD    NAME=(STANKEY,SEQ),TYPE=C,BYTES=2,START=1                00220000
+      SEGM     NAME=STOKSTAT,PARENT=PARTROOT,BYTES=160,FREQ=2           00230000
+      FIELD    NAME=(STOCKEY,SEQ),TYPE=C,BYTES=16,START=1               00240000
+      SEGM     NAME=CYCCOUNT,PARENT=STOKSTAT,BYTES=25,FREQ=1            00250000
+      FIELD    NAME=(CYCLKEY,SEQ),TYPE=C,BYTES=2,START=1                00260000
+      SEGM     NAME=BACKORDR,PARENT=STOKSTAT,BYTES=75,FREQ=0            00270000
+      FIELD    NAME=(BACKKEY,SEQ),TYPE=C,BYTES=10,START=1               00280000
+      DBDGEN                                                            00290000
+      FINISH                                                            00300000
+      END                                                               00310000

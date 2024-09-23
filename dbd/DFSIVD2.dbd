@@ -1,0 +1,85 @@
+**************************** INSTALL/IVP ****************************** 00010000
+*                                                                     * 00020000
+*                   M O D U L E    P R O L O G U E                    * 00030000
+*                                                                     * 00040000
+*********************************************************************** 00050000
+*                                                                     * 00060000
+*          NAME:  DFSIVD2                                             * 00070000
+*                                                                     * 00080000
+*   DESCRIPTION:  HDAM/VSAM DBD                                       * 00090000
+*                                                                     * 00100000
+**************************************************************@SCPYRT** 00110000
+*                                                                     * 00120000
+*  Licensed Materials - Property of IBM                               * 00130000
+*                                                                     * 00140000
+*  5635-A06                                                           * 00150000
+*                                                                     * 00160000
+*      Copyright IBM Corp. 1974,1998 All Rights Reserved              * 00170000
+*                                                                     * 00180000
+*  US Government Users Restricted Rights - Use, duplication or        * 00190000
+*  disclosure restricted by GSA ADP Schedule contract with            * 00200000
+*  IBM Corp.                                                          * 00210000
+*                                                                     * 00220000
+**************************************************************@ECPYRT** 00230000
+*                                                                     * 00240000
+*        STATUS:  IMS/ESA 3.1                                         * 00250000
+*                                                                     * 00260000
+*   MODULE TYPE:  ASSEMBLER                                           * 00270000
+*                                                                     * 00280000
+*       CHANGES:  PROLOGUE ADDED AND MINOR CHANGES FOR 3.1            * 00290000
+*                                                                     * 00300000
+*---+----1----+----2----+----3----+----4----+----5----+----6----+----7* 00310000
+* PM38214  09/15/11  Update for Catalog                               * 00320000
+*---------------------------------------------------------------------* 00330000
+*                                                                     * 00340000
+*  SEGMENT DESCRIPTION                                                * 00350000
+*    ROOT ONLY DATABASE                                               * 00360000
+*      BYTES  1-10  LAST NAME (CHARACTER) - KEY                       * 00370000
+*      BYTES  11-20 FIRST NAME (CHARACTER)                            * 00380000
+*      BYTES  21-30 INTERNAL PHONE NUMBER (NUMERIC)                   * 00390000
+*      BYTES  31-37 INTERNAL ZIP (CHARACTER)                          * 00400000
+*      BYTES  38-40 RESERVED                                          * 00410000
+*                                                                     * 00420000
+*---------------------------------------------------------------------* 00430000
+   DBD      NAME=IVPDB2,                                               C00440000
+               ENCODING=Cp1047,                                        C00450000
+               ACCESS=HDAM,                                            C00460000
+               RMNAME=(DFSHDC40,40,100)                                 00470000
+   DATASET  DD1=DFSIVD2,                                               C00480000
+               DEVICE=3380,                                            C00490000
+               SIZE=2048                                                00500000
+                                                                        00510000
+   SEGM     NAME=A1111111,                                             C00520000
+               EXTERNALNAME=PHONEBOOK,                                 C00530000
+               PARENT=0,                                               C00540000
+               BYTES=40,                                               C00550000
+               RULES=(LLL,LAST)                                         00560000
+                                                                        00570000
+   FIELD    NAME=(A1111111,SEQ,U),                                     C00580000
+               EXTERNALNAME=LASTNAME,                                  C00590000
+               BYTES=10,                                               C00600000
+               START=1,                                                C00610000
+               TYPE=C,                                                 C00620000
+               DATATYPE=CHAR                                            00630000
+                                                                        00640000
+   FIELD    EXTERNALNAME=FIRSTNAME,                                    C00650000
+               BYTES=10,                                               C00660000
+               START=11,                                               C00670000
+               TYPE=C,                                                 C00680000
+               DATATYPE=CHAR                                            00690000
+                                                                        00700000
+   FIELD    EXTERNALNAME=EXTENSION,                                    C00710000
+               BYTES=10,                                               C00720000
+               START=21,                                               C00730000
+               TYPE=C,                                                 C00740000
+               DATATYPE=CHAR                                            00750000
+                                                                        00760000
+   FIELD    EXTERNALNAME=ZIPCODE,                                      C00770000
+               BYTES=7,                                                C00780000
+               START=31,                                               C00790000
+               TYPE=C,                                                 C00800000
+               DATATYPE=CHAR                                            00810000
+                                                                        00820000
+   DBDGEN                                                               00830000
+   FINISH                                                               00840000
+   END                                                                  00850000

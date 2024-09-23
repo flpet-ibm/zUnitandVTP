@@ -1,0 +1,42 @@
+**************************** INSTALL/IVP ****************************** 00010000
+*                                                                     * 00020000
+*                   M O D U L E    P R O L O G U E                    * 00030000
+*                                                                     * 00040000
+*********************************************************************** 00050000
+*                                                                     * 00060000
+*          NAME:  DFSIVD5                                             * 00070000
+*                                                                     * 00080000
+*   DESCRIPTION:  GSAM/BSAM DBD                                       * 00090000
+*                                                                     * 00100000
+**************************************************************@SCPYRT** 00110000
+*                                                                     * 00120000
+*  Licensed Materials - Property of IBM                               * 00130000
+*                                                                     * 00140000
+*  5635-A06                                                           * 00150000
+*                                                                     * 00160000
+*      Copyright IBM Corp. 1974,1998 All Rights Reserved              * 00170000
+*                                                                     * 00180000
+*  US Government Users Restricted Rights - Use, duplication or        * 00190000
+*  disclosure restricted by GSA ADP Schedule contract with            * 00200000
+*  IBM Corp.                                                          * 00210000
+*                                                                     * 00220000
+**************************************************************@ECPYRT** 00230000
+*                                                                     * 00240000
+*        STATUS:  IMS/ESA 3.1                                         * 00250000
+*                                                                     * 00260000
+*   MODULE TYPE:  ASSEMBLER                                           * 00270000
+*                                                                     * 00280000
+*       CHANGES:  PROLOGUE ADDED AND MINOR CHANGES FOR 3.1            * 00290000
+*                                                                     * 00300000
+*---+----1----+----2----+----3----+----4----+----5----+----6----+----7* 00310000
+*---------------------------------------------------------------------* 00320000
+*                                                                     * 00330000
+*  SEGMENT DESCRIPTION                                                * 00340000
+*    USED FOR BMP/DLI INPUT AND OUTPUT                                * 00350000
+*                                                                     * 00360000
+*---------------------------------------------------------------------* 00370000
+  DBD    NAME=IVPDB5,ACCESS=(GSAM,BSAM)                                 00380000
+  DATASET DD1=DFSIVD5I,DD2=DFSIVD5O,RECFM=F,RECORD=80                   00390000
+  DBDGEN                                                                00400000
+  FINISH                                                                00410000
+  END                                                                   00420000
