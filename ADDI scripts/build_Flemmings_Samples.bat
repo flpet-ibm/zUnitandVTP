@@ -4,7 +4,7 @@ set GITURL=git@github.com:flpet-ibm/zUnitandVTP.git
 set ADDIPROJ=Flemmings_Samples
 set ADDIROOT=C:\IBM AD\Mainframe Projects
 set ADDIINST=C:\Program Files\IBM Application Discovery and Delivery Intelligence
-pushd %~dp0
+pushd "%~dp0"
 IF EXIST "%GITFOLDER%" (
    cd /d "%GITFOLDER%"
    echo Pulling Git repo into %GITFOLDER%
