@@ -1,0 +1,27 @@
+         TITLE 'SAMPLE PROBLEM PSB'                                     00010000
+*                                                                       00020000
+**************************************************************@SCPYRT** 00030000
+*                                                                     * 00040000
+*  Licensed Materials - Property of IBM                               * 00050000
+*                                                                     * 00060000
+*  5635-A06                                                           * 00070000
+*                                                                     * 00080000
+*      Copyright IBM Corp. 1989,1998 All Rights Reserved              * 00090000
+*                                                                     * 00100000
+*  US Government Users Restricted Rights - Use, duplication or        * 00110000
+*  disclosure restricted by GSA ADP Schedule contract with            * 00120000
+*  IBM Corp.                                                          * 00130000
+*                                                                     * 00140000
+**************************************************************@ECPYRT** 00150000
+*       CHANGES:                                                      * 00160000
+*  APAR...  ID  PREREQ.  DATE....  DESCRIPTION....................    * 00170000
+*  KB30134  HN           04/09/08  ADD PCB LABEL FOR AIB INTERFACE    * 00180000
+*---+----1----+----2----+----3----+----4----+----5----+----6----+----7* 00190000
+PCB01    PCB    TYPE=DB,DBDNAME=DI21PART,PROCOPT=AP,KEYLEN=43,SB=COND   00200000
+         SENSEG NAME=PARTROOT,PARENT=0                                  00210000
+         SENSEG NAME=STANINFO,PARENT=PARTROOT                           00220000
+         SENSEG NAME=STOKSTAT,PARENT=PARTROOT                           00230000
+         SENSEG NAME=CYCCOUNT,PARENT=STOKSTAT                           00240000
+         SENSEG NAME=BACKORDR,PARENT=STOKSTAT                           00250000
+         PSBGEN LANG=ASSEM,PSBNAME=DFSSAM09,CMPAT=YES,OLIC=YES          00260000
+         END                                                            00270000
