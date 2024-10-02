@@ -1,0 +1,28 @@
+         TITLE 'SAMPLE PROBLEM PSB'                                     00010000
+*                                                                       00020000
+**************************************************************@SCPYRT** 00030000
+*                                                                     * 00040000
+*  Licensed Materials - Property of IBM                               * 00050000
+*                                                                     * 00060000
+*  5635-A06                                                           * 00070000
+*                                                                     * 00080000
+*      Copyright IBM Corp. 1974,1998 All Rights Reserved              * 00090000
+*                                                                     * 00100000
+*  US Government Users Restricted Rights - Use, duplication or        * 00110000
+*  disclosure restricted by GSA ADP Schedule contract with            * 00120000
+*  IBM Corp.                                                          * 00130000
+*                                                                     * 00140000
+**************************************************************@ECPYRT** 00150000
+*                                                                     * 00160000
+*       CHANGES:                                                      * 00170000
+*  APAR...  ID  PREREQ.  DATE....  DESCRIPTION....................    * 00180000
+*  KNQ0115  01           11/17/91  ADD PCB LABEL FOR AIB INTERFACE    * 00190000
+*                                                                     * 00200000
+DBPCB01  PCB    TYPE=DB,DBDNAME=DI21PART,PROCOPT=G,KEYLEN=43            00210000
+         SENSEG NAME=PARTROOT                                           00220000
+         SENSEG NAME=STANINFO,PARENT=PARTROOT                           00230000
+         SENSEG NAME=STOKSTAT,PARENT=PARTROOT                           00240000
+         SENSEG NAME=CYCCOUNT,PARENT=STOKSTAT                           00250000
+         SENSEG NAME=BACKORDR,PARENT=STOKSTAT                           00260000
+         PSBGEN LANG=COBOL,PSBNAME=DFSSAM07                             00270000
+         END                                                            00280000
