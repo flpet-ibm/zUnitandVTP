@@ -15,7 +15,7 @@
        01 WS-GENDER       PIC X.
 
        01  WS-RC          PIC X VALUE '0'.
-       01  WS-MODULE      PIC X(8) VALUE 'CPRCHECK'.
+       01  WS-MODULE      PIC X(8) VALUE 'CPRCHECD'.
 
 
        PROCEDURE DIVISION.
