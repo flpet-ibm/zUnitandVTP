@@ -14,7 +14,7 @@ To add to ADDI :
   - Line 4: The name of the ADDI projet you have created
   - Line 5: The installationroot folder for your ADDI project folders mainframe projects.
   - Line 6: The installation path to ADDI. It is already set to the default installation path.
-  - Edit the line which calls updateSyncIni.ps1, if your installation is not in the default folders, then the sync.ini file might not be located in C:\IBM AD\Mainframe Sources. If not add the path to the SyncFile to the powershell command *-SyncFile 'C:\IBM AD\Mainframe Sources\sync.ini'. *
+  - Edit the line which calls updateSyncIni.ps1, if your installation is not in the default folders, then the sync.ini file might not be located in C:\IBM AD\Mainframe Sources. If not add the path to the SyncFile to the powershell command `-SyncFile 'C:\IBM AD\Mainframe Sources\sync.ini'`.
 - Now run the batch script. If you are running the Build Client as Administrator, you should open a command prompt as Administator and run the command from there.
 - It will
   - Clone/pull the Git repo
