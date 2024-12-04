@@ -21,6 +21,8 @@ popd
 echo Copying PSB Mapping file to %ADDIROOT%\%ADDIPROJ%
 copy "%GITFOLDER%\ADDI Config\PSBmap.txt" "%ADDIROOT%\%ADDIPROJ%"
 set BCCMD="%ADDIINST%\IBM Application Discovery Build Client\Bin\Release\IBMApplicationDiscoveryBuildClient"
+echo Updateing sync.ini
+powershell 'c:\IBM AD\updateSyncIni.ps1' Flemmings_Samples 'C:\IBM AD\Git\zUnitandVTP\'
 echo Synchronzing ADDI project %ADDIPROJ%
 %BCCMD%  /umm1 %ADDIPROJ%
 echo Performing Make for ADDI project %ADDIPROJ%
