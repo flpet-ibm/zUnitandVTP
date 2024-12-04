@@ -24,11 +24,13 @@ if (-not (Test-Path $SyncFile -PathType leaf)) {
 
 function Add-Folder {
 	  param (
-        $SearchExtensions,
+                $searchExt,
 		$FileType,
 		$ADDIFolder
-    )
- 	$n = Get-ChildItem -Path $GitFolder -Recurse -File -Include $SearchExtensions
+                $GitSubFolder=''
+                )
+        $fullGit = $GitFolder + '\' + $GitSubFolder
+ 	$n = Get-ChildItem -Path $fullGit -Recurse -File -Include $searchExt
 
 	$lastDir = ""
 	foreach($file in $n){
@@ -39,7 +41,7 @@ function Add-Folder {
 				Path = $file.DirectoryName
 				FileType = $FileType
 				ADDIFolder = $ADDIFolder
-				Filter = 'filter(' + $searchExtensions + ')'}) | Out-Null
+				Filter = 'filter(' + $searchExt + ')'}) | Out-Null
 		   $lastDir = $file.DirectoryName
 		}
 	}	
@@ -52,17 +54,17 @@ $Header = 'Project', 'SyncType', 'Path', 'FileType', 'ADDIFolder', 'Filter'
 $P = Import-Csv -Path $SyncFile -Delimiter ',' -Header $Header
 $newP = [System.Collections.ArrayList]$P.Where({$_.Project -ne $Project})
 
-Add-Folder -searchExtensions '*.bms'     -FileType 'BMS'           -ADDIFolder 'BMS'
-Add-Folder -searchExtensions '*.dbd'     -FileType 'DBD'           -ADDIFolder 'DBD'
-Add-Folder -searchExtensions '*.psb'     -FileType 'PSB'           -ADDIFolder 'PCB'
-Add-Folder -searchExtensions '*.mfs'     -FileType 'IMS Map'       -ADDIFolder 'MFS'
-Add-Folder -searchExtensions '*.jcl'     -FileType 'JCL'           -ADDIFolder 'JCL'
-Add-Folder -searchExtensions '*.jclproc' -FileType 'JCL Procs'     -ADDIFolder 'JCL_PROCLIB'
-Add-Folder -searchExtensions 'ims*.txt'  -FileType 'Configuration' -ADDIFolder 'IMST_PGM'
-Add-Folder -searchExtensions '*.cpy'     -FileType 'COBOL Include' -ADDIFolder 'COPY'
-Add-Folder -searchExtensions '*.cbl'     -FileType 'zOS Cobol'     -ADDIFolder 'COBOL_MVS'
-Add-Folder -searchExtensions '*.pli'     -FileType 'PL1'           -ADDIFolder 'PL1'
-Add-Folder -searchExtensions '*.inc'     -FileType 'PL1 Include'   -ADDIFolder 'PL1_INCLUDE'
+Add-Folder -searchExt '*.bms'     -FileType 'BMS'           -ADDIFolder 'BMS'
+Add-Folder -searchExt '*.dbd'     -FileType 'DBD'           -ADDIFolder 'DBD'
+Add-Folder -searchExt '*.psb'     -FileType 'PSB'           -ADDIFolder 'PCB'
+Add-Folder -searchExt '*.mfs'     -FileType 'IMS Map'       -ADDIFolder 'MFS'
+Add-Folder -searchExt '*.jcl'     -FileType 'JCL'           -ADDIFolder 'JCL'
+Add-Folder -searchExt '*.jclproc' -FileType 'JCL Procs'     -ADDIFolder 'JCL_PROCLIB'
+Add-Folder -searchExt 'ims*.txt'  -FileType 'Configuration' -ADDIFolder 'IMST_PGM'
+Add-Folder -searchExt '*.cpy'     -FileType 'COBOL Include' -ADDIFolder 'COPY'
+Add-Folder -searchExt '*.cbl'     -FileType 'zOS Cobol'     -ADDIFolder 'COBOL_MVS'     -GitSubFolder 'cobol'
+Add-Folder -searchExt '*.pli'     -FileType 'PL1'           -ADDIFolder 'PL1'
+Add-Folder -searchExt '*.inc'     -FileType 'PL1 Include'   -ADDIFolder 'PL1_INCLUDE'
 
 if ($Write) {
 	Remove-Item -Path $SyncFile
