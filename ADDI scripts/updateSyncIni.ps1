@@ -26,7 +26,7 @@ function Add-Folder {
 	  param (
                 $searchExt,
 		$FileType,
-		$ADDIFolder
+		$ADDIFolder,
                 $GitSubFolder=''
                 )
         $fullGit = $GitFolder + '\' + $GitSubFolder
