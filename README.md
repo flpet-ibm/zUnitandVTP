@@ -7,7 +7,6 @@ The installation is a bit of a catch-22, as the scripts will clone the Git repo 
 
 To add to ADDI :
 - Create a project in ADDI
-- Edit sync.ini on the ADDI Server. Default location is C:\IBM AD\Mainframe Sources. You must add the lines with "Flemming_Samples" in the beginning from https://github.com/flpet-ibm/zUnitandVTP/blob/main/ADDI%20scripts/sync.ini to sync.ini. Replace "Flemming_Samples" with the project name you have use in ADDI. 
 - Copy https://github.com/flpet-ibm/zUnitandVTP/blob/main/ADDI%20scripts/build_Flemmings_Samples.bat to the server. 
 - Edit the bat file :
   - Line 2: Change to the foldername where you want the Git repo cloned to on your ADDI Server. Last part of the path must be the project name in Github.
@@ -15,7 +14,8 @@ To add to ADDI :
   - Line 4: The name of the ADDI projet you have created
   - Line 5: The installationroot folder for your ADDI project folders mainframe projects.
   - Line 6: The installation path to ADDI. It is already set to the default installation path.
-- Now run the batch script. If you are running the Build Client as Administrator, you should open a command propmt as Administator and run the command from there.
+  - Edit the line which calls updateSyncIni.ps1, if your installation is not in the default folders, then the sync.ini file might not be located in C:\IBM AD\Mainframe Sources. If not add the path to the SyncFile to the powershell command *-SyncFile 'C:\IBM AD\Mainframe Sources\sync.ini'. *
+- Now run the batch script. If you are running the Build Client as Administrator, you should open a command prompt as Administator and run the command from there.
 - It will
   - Clone/pull the Git repo
   - synchronize the files intot he ADDI project
