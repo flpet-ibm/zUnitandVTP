@@ -7,47 +7,31 @@
        CONFIGURATION SECTION.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-      * Host variables for input to DB2 integer types
-
-       01  DB2-IN-INTEGERS.
-           03 DB2-CUSTOMERNUMBER-INT   PIC S9(9) COMP.
-
-           EXEC SQL INCLUDE SQLCA      END-EXEC.
-           EXEC SQL INCLUDE CUSTOMER   END-EXEC.
-
-       LINKAGE SECTION.
+      *
        01  MY-CUST.
            COPY ADDICPY1.
 
-       PROCEDURE DIVISION USING MY-CUST.
+       01 MY-PGM PIC X(8).
+       01  WS-ABSTIME                  PIC S9(8) COMP VALUE +0.
+
+
+       LINKAGE SECTION.
+       01  LS-CUST.
+           COPY ADDICPY1.
+
+       PROCEDURE DIVISION USING DFHEIBLK DFHCOMMAREA LS-CUST.
       *
        MAIN SECTION.
        MAIN1.
 
-            MOVE FSP-CUSTOMER-NUM IN MY-CUST TO
-                 DB2-CUSTOMERNUMBER-INT
+           EXEC CICS ASKTIME ABSTIME(WS-ABSTIME)
+           END-EXEC
 
-            EXEC SQL
-               SELECT FIRSTNAME,
-                      LASTNAME,
-                      DATEOFBIRTH,
-                      HOUSENAME,
-                      HOUSENUMBER,
-                      POSTCODE,
-                      PHONEMOBILE,
-                      PHONEHOME,
-                      EMAILADDRESS
-               INTO  :FSP-FIRST-NAME,
-                     :FSP-LAST-NAME,
-                     :FSP-DOB,
-                     :FSP-HOUSE-NAME,
-                     :FSP-HOUSE-NUM,
-                     :FSP-POSTCODE,
-                     :FSP-PHONE-MOBILE,
-                     :FSP-PHONE-HOME,
-                     :FSP-EMAIL-ADDRESS
-               FROM CUSTOMER
-               WHERE CUSTOMERNUMBER = :DB2-CUSTOMERNUMBER-INT
-           END-EXEC.
+           MOVE LS-CUST TO MY-CUST
+
+           MOVE 'ADDIPGM9' TO MY-PGM
+           CALL MY-PGM USING MY-CUST
+
+           MOVE MY-CUST TO LS-CUST.
 
        END PROGRAM ADDIPGM3.
