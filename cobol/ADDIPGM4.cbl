@@ -1,5 +1,5 @@
        ID DIVISION.
-       PROGRAM-ID. ADDIPGM2.
+       PROGRAM-ID. ADDIPGM4.
       ***
       *
       *    (C) 2019 IBM FLEMMING PETERSEN
@@ -34,4 +34,4 @@
 
            MOVE MY-CUST TO LS-CUST.
 
-       END PROGRAM ADDIPGM2.
+       END PROGRAM ADDIPGM4.
