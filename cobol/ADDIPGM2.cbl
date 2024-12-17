@@ -12,6 +12,7 @@
            COPY ADDICPY1.
 
        01 MY-PGM PIC X(8).
+       01  WS-ABSTIME                  PIC S9(8) COMP VALUE +0.
 
 
        LINKAGE SECTION.
@@ -22,6 +23,9 @@
       *
        MAIN SECTION.
        MAIN1.
+
+           EXEC CICS ASKTIME ABSTIME(WS-ABSTIME)
+           END-EXEC
 
            MOVE LS-CUST TO MY-CUST
 
