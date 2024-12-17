@@ -39,6 +39,17 @@
                 MY-TEXT
            DISPLAY MY-TEXT.
 
+           MOVE 'ADDIPGM3' TO MY-PGM
+           CALL MY-PGM USING DFHEIBLK DFHCOMMAREA MY-CUST
+
+
+           MOVE FSP-FIRST-NAME IN FSP-CUSTOMER-REQUEST TO
+                MY-TEXT.
+           DISPLAY MY-TEXT.
+           MOVE FSP-LAST-NAME IN FSP-CUSTOMER-REQUEST TO
+                MY-TEXT
+           DISPLAY MY-TEXT.
+
            EXEC CICS RETURN END-EXEC.
 
 

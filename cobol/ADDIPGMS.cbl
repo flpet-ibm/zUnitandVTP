@@ -1,5 +1,5 @@
        ID DIVISION.
-       PROGRAM-ID. ADDIPGM9.
+       PROGRAM-ID. ADDIPGMS.
       ***
       *
       *    (C) 2019 IBM FLEMMING PETERSEN
@@ -50,4 +50,4 @@
                WHERE CUSTOMERNUMBER = :DB2-CUSTOMERNUMBER-INT
            END-EXEC.
 
-       END PROGRAM ADDIPGM9.
+       END PROGRAM ADDIPGMS.
