@@ -29,7 +29,7 @@
 
            MOVE LS-CUST TO MY-CUST
 
-           MOVE 'ADDIPGM9' TO MY-PGM
+           MOVE 'ADDIPGMS' TO MY-PGM
            CALL MY-PGM USING MY-CUST
 
            MOVE MY-CUST TO LS-CUST.
