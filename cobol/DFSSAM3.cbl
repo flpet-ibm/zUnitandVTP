@@ -23,7 +23,10 @@
 000040 SOURCE-COMPUTER.  IBM-370.                                       00230000
 000060 OBJECT-COMPUTER.  IBM-370.                                       00240000
 000080 DATA DIVISION.                                                   00250000
-000100 WORKING-STORAGE SECTION.                                         00260000
+000100 WORKING-STORAGE SECTION.                                         00250001
+       77  INPANAL     pic x(8) value 'INPANAL'.                        00250002
+       77  PNEDIT      pic x(8) value 'PNEDIT'.                         00250003
+                                                                        00260000
 000120 01  NEXT-FUNC               PICTURE X(04)  VALUE 'GN  '.         00270000
 000140 01  UNIQ-FUNC               PICTURE X(04)  VALUE 'GU  '.         00280000
 000160 01  ISRT-FUNC               PICTURE X(04)  VALUE 'ISRT'.         00290000
@@ -223,11 +226,11 @@
 003920 GET-TRANSACTION.                                                 02230000
 003960     CALL 'CBLTDLI' USING UNIQ-FUNC, IO-TERM-PCB, TERM-IN-AREA.   02240000
 004000 CALL-INPUT-ANALYZER.                                             02250000
-004040     CALL 'INPANAL' USING PARAM-TABLE, TERM-IN-AREA,              02260000
+004040     CALL INPANAL USING PARAM-TABLE, TERM-IN-AREA,                02260000
 004060                          REFORM-MESSAGE, MSG-SEG-CNT.            02270000
 004100 CALL-PART-EDIT.                                                  02280000
 004120     MOVE PART-NO OF REFORM-MESSAGE   TO PART-NO-EDIT.            02290000
-004160     CALL 'PNEDIT' USING PART-LINK.                               02300000
+004160     CALL PNEDIT USING PART-LINK.                                 02300000
 004200 FIND-PART-IN-DATA-BASE.                                          02310000
 004220     MOVE PART-NO-EDIT       TO   PN-WORK.                        02320000
 004240     MOVE ROOT-KEY-WA        TO  KEY-VALUE.                       02330000

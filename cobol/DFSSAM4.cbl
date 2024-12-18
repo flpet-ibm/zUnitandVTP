@@ -28,7 +28,9 @@
 010090 OBJECT-COMPUTER. IBM-370.                                        00280000
 010100 DATA DIVISION.                                                   00290000
 010110 WORKING-STORAGE SECTION.                                         00300000
-010120 77  GET-UNIQUE, PICTURE X(4), VALUE 'GU  '.                      00310000
+       77  INPANAL     pic x(8) value 'INPANAL'.                        00300001
+       77  PNEDIT      pic x(8) value 'PNEDIT'.                         00300002
+       77  GET-UNIQUE, PICTURE X(4), VALUE 'GU  '.                      00310000
 010130 77  GET-HOLD-UNIQUE, PICTURE X(4), VALUE 'GHU '.                 00320000
 010140 77  GET-NEXT, PICTURE X(4), VALUE 'GN  '.                        00330000
 010150 77  DELEET, PICTURE X(4), VALUE 'DLET'.                          00340000
@@ -263,7 +265,7 @@
 070150     IF FIRST-6 = 'ADDPN ' GO TO ADDPN-RTN.                       02630000
 070151     IF FIRST-6 = 'ADDPAR' GO TO ADDPN-RTN.                       02640000
 070160 LP.                                                              02650000
-070170      CALL 'INPANAL' USING ALL-OTHERS-PARAM-TABLE, LINE-INPUT,    02660000
+070170      CALL INPANAL USING ALL-OTHERS-PARAM-TABLE, LINE-INPUT,      02660000
 070180                EDITED-ALL-OTHERS-MSG, MSG-SEG-CNT.               02670000
 070190     ADD 1 TO MSG-SEG-CNT.                                        02680000
 070200 GN.                                                              02690000
@@ -275,12 +277,12 @@
 080050     IF TERM-STATUS NOT = END-OF-MSG GO TO ERROR-HANDLER.         02750000
 080060     MOVE 0 TO MSG-SEG-CNT.                                       02760000
 080065     MOVE SPACES TO INPUT-TEXT.                                   02770000
-080080      CALL 'INPANAL' USING ALL-OTHERS-PARAM-TABLE, LINE-INPUT,    02780000
+080080      CALL INPANAL USING ALL-OTHERS-PARAM-TABLE, LINE-INPUT,      02780000
 080090                            EDITED-ALL-OTHERS-MSG, MSG-SEG-CNT.   02790000
 080110     MOVE 1 TO MSG-SEG-CNT.                                       02800000
 080120     GO TO BRANCH-TABLE.                                          02810000
 080130 ADDPN-RTN.                                                       02820000
-080150      CALL 'INPANAL' USING ADD-PART-NO-PARAM-TABLE, LINE-INPUT,   02830000
+080150      CALL INPANAL USING ADD-PART-NO-PARAM-TABLE, LINE-INPUT,     02830000
 080160                            EDITED-ADDPN-MSG, MSG-SEG-CNT.        02840000
 080180     ADD 1 TO MSG-SEG-CNT.                                        02850000
 080190     PERFORM GN.                                                  02860000
@@ -288,11 +290,11 @@
 090010     IF TERM-STATUS NOT = END-OF-MSG GO TO ERROR-HANDLER.         02880000
 090020     MOVE 0 TO MSG-SEG-CNT.                                       02890000
 090025     MOVE SPACES TO INPUT-TEXT.                                   02900000
-090040      CALL 'INPANAL' USING ADD-PART-NO-PARAM-TABLE, LINE-INPUT,   02910000
+090040      CALL INPANAL USING ADD-PART-NO-PARAM-TABLE, LINE-INPUT,     02910000
 090050                            EDITED-ADDPN-MSG, MSG-SEG-CNT.        02920000
 090070     MOVE 1 TO MSG-SEG-CNT.  MOVE PART-NO TO PART-NO-ENTRY.       02930000
 090080 PART-NO-EDIT.                                                    02940000
-090083      CALL 'PNEDIT' USING PART-NO-EDIT-TABLE.                     02950000
+090083      CALL PNEDIT USING PART-NO-EDIT-TABLE.                       02950000
 090090     IF PART-NO-REJECT NOT = ' ' GO TO REJECT-MSG.                02960000
 090100 RTN-TO-ADDPN.                                                    02970000
 090110     MOVE PART-NO-ENTRY TO PART-NO.                               02980000
@@ -323,7 +325,7 @@
 100080         GOBACK.                                                  03230000
 100100 BRANCH-TABLE.                                                    03240000
 100101     MOVE PART-NUM TO PART-NO-ENTRY.                              03250000
-100103      CALL 'PNEDIT' USING PART-NO-EDIT-TABLE.                     03260000
+100103      CALL PNEDIT USING PART-NO-EDIT-TABLE.                       03260000
 100105     IF PART-NO-REJECT NOT = ' ' GO TO REJECT-MSG.                03270000
 100106     MOVE PART-NO-ENTRY TO PART-NUM.                              03280000
 100110     IF TRANS-CODE = 'DLETPN  ' GO TO DELETE-PN-RTN.              03290000

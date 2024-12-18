@@ -26,8 +26,10 @@
 010100 SOURCE-COMPUTER. IBM-370.                                        00260000
 010110 OBJECT-COMPUTER. IBM-370.                                        00270000
 010120 DATA DIVISION.                                                   00280000
-010130 WORKING-STORAGE SECTION.                                         00290000
-010140 77  GET-UNIQUE  PICTURE XXXX VALUE 'GU  '.                       00300000
+010130 WORKING-STORAGE SECTION.                                         00280001
+       77  INPANAL     pic x(8) value 'INPANAL'.                        00280002
+       77  PNEDIT      pic x(8) value 'PNEDIT'.                         00280003
+       77  GET-UNIQUE  PICTURE XXXX VALUE 'GU  '.                       00300000
 010150 77  GET-NEXT    PICTURE XXXX VALUE 'GN  '.                       00310000
 010160 77  IN-SERT     PICTURE XXXX VALUE 'ISRT'.                       00320000
 010170 77  SEG-NOT-FOUND PICTURE XX VALUE 'GE'.                         00330000
@@ -154,14 +156,14 @@
 080140 EXIT-RTN.                                                        01540000
 080160     GOBACK.                                                      01550000
 080180 TERM-OK.                                                         01560000
-080200      CALL 'INPANAL' USING PARAMETER-TABLE, LINE-INPUT,           01570000
+080200      CALL INPANAL USING PARAMETER-TABLE, LINE-INPUT,             01570000
 090010                 EDITED-MSG, MSG-SEG-CNT.                         01580000
 090030     MOVE 0 TO MSG-SEG-CNT. MOVE SPACES TO INPUT-TEXT.            01590000
-090050      CALL 'INPANAL' USING PARAMETER-TABLE, LINE-INPUT,           01600000
+090050      CALL INPANAL USING PARAMETER-TABLE, LINE-INPUT,             01600000
 090060                 EDITED-MSG, MSG-SEG-CNT.                         01610000
 090080     MOVE 1 TO MSG-SEG-CNT.                                       01620000
 090090     MOVE PART-NUMBER TO PART-NO-ENTRY.                           01630000
-090110      CALL 'PNEDIT' USING PART-NO-EDIT-TABLE.                     01640000
+090110      CALL PNEDIT USING PART-NO-EDIT-TABLE.                       01640000
 090130     IF  PART-NO-REJECT NOT = ' ' GO TO PART-REJECTED-RTN.        01650000
 090140     MOVE PART-NO-ENTRY TO FILL-PART-3, PART-NUMBER.              01660000
 090160      CALL 'CBLTDLI' USING GET-UNIQUE, DATABASE, ROOT-FORMAT,     01670000

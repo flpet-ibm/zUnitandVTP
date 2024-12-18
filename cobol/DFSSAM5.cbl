@@ -24,7 +24,9 @@
 003200 DATA DIVISION.                                                   00240000
 003300                                                                  00250000
 003400 WORKING-STORAGE SECTION.                                         00260000
-003500                                                                  00270000
+       77  INPANAL     pic x(8) value 'INPANAL'.                        00260001
+       77  PNEDIT      pic x(8) value 'PNEDIT'.                         00260002
+                                                                        00270000
 003600 77  GET-UNIQUE, PICTURE XXXX, VALUE 'GU  '.                      00280000
 003700 77  GET-NEXT, PICTURE XXXX, VALUE 'GN  '.                        00290000
 003800 77  GET-HOLD-UNIQUE, PICTURE XXXX, VALUE 'GHU '.                 00300000
@@ -243,7 +245,7 @@
 025100     CALL 'CBLTDLI' USING GET-UNIQUE TERM-1-PCB  I-O-AREA1.       02430000
 025200     MOVE 0 TO MSG-SEG-CNT.                                       02440000
 025300 INPUTANAL.                                                       02450000
-025400     CALL 'INPANAL' USING PARAM-TABLE, I-O-AREA1, EDITED-MSG      02460000
+025400     CALL INPANAL USING PARAM-TABLE, I-O-AREA1, EDITED-MSG        02460000
 025500         MSG-SEG-CNT.                                             02470000
 025600     IF NUM-TEST-QTY NOT NUMERIC                                  02480000
 025700       MOVE 46 TO CHAR-COUNT                                      02490000
@@ -255,7 +257,7 @@
 026300      GO TO WRITE-ROUTINE.                                        02550000
 026400 PN-EDIT.                                                         02560000
 026500     MOVE FIELD-1 TO PART-NO.                                     02570000
-026600     CALL 'PNEDIT' USING PART-LINK.                               02580000
+026600     CALL PNEDIT USING PART-LINK.                                 02580000
 026700     MOVE PART-NO TO FIELD-1.                                     02590000
 026800     IF REJECT-CODE NOT = ' '                                     02600000
 026900         MOVE OUT-MSG03 TO T-XT                                   02610000

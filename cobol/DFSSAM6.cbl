@@ -24,7 +24,9 @@
 003200 DATA DIVISION.                                                   00240000
 003300                                                                  00250000
 003400 WORKING-STORAGE SECTION.                                         00260000
-003500                                                                  00270000
+003500 77  INPANAL     pic x(8) value 'INPANAL'.                        00260001
+       77  PNEDIT      pic x(8) value 'PNEDIT'.                         00260002
+                                                                        00270000
 003600 77  GET-UNIQUE, PICTURE XXXX, VALUE 'GU  '.                      00280000
 003700 77  GET-NEXT, PICTURE XXXX, VALUE 'GN  '.                        00290000
 003800 77  GET-HOLD-UNIQUE, PICTURE XXXX, VALUE 'GHU '.                 00300000
@@ -239,13 +241,13 @@
 024700     IF I-O-STATUS NOT = '  ', GO TO ERROR-ANALYSIS.              02390000
 024800     MOVE 0 TO MSG-SEG-CNT.                                       02400000
 024900 INPUTANAL.                                                       02410000
-025000     CALL 'INPANAL' USING PARAM-TABLE, I-O-AREA1, EDITED-MSG      02420000
+025000     CALL INPANAL USING PARAM-TABLE, I-O-AREA1, EDITED-MSG        02420000
 025100         MSG-SEG-CNT.                                             02430000
 025200     IF NUM-TEST-QTY NOT NUMERIC, MOVE OUT-MSG01                  02440000
 025300         TO T-XT, MOVE 26 TO CHAR-COUNT, GO TO WRITE-ROUTINE.     02450000
 025400 PN-EDIT.                                                         02460000
 025500     MOVE FIELD-1 TO PART-NO.                                     02470000
-025600     CALL 'PNEDIT' USING PART-LINK.                               02480000
+025600     CALL PNEDIT USING PART-LINK.                                 02480000
 025700     MOVE PART-NO TO FIELD-1.                                     02490000
 025800     IF REJECT-CODE NOT = ' ', MOVE OUT-MSG02 TO                  02500000
 025900         T-XT, MOVE 25 TO CHAR-COUNT, GO TO WRITE-ROUTINE.        02510000
