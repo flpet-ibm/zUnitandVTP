@@ -6,9 +6,9 @@
        CONFIGURATION SECTION.
       * SOURCE-COMPUTER. MAINFRAME WITH DEBUGGING MODE.
        SOURCE-COMPUTER. MAINFRAME.
-   
 
 
+       DATA DIVISION.
       *****************************************************************
       *** Working storage                                           ***
       *****************************************************************
@@ -32,5 +32,5 @@
        PROCEDURE DIVISION.
        MAIN SECTION.
        MAIN1.
-  
+
            GOBACK.

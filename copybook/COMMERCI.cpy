@@ -35,7 +35,7 @@
            10 REQUESTDATE          PIC X(26).
            10 STARTDATE            PIC X(10).
            10 RENEWALDATE          PIC X(10).
-           10 ADDRESS              PIC X(255).
+           10 ADDRESS1              PIC X(255).
            10 ZIPCODE              PIC X(8).
            10 LATITUDEN            PIC X(11).
            10 LONGITUDEW           PIC X(11).
@@ -49,7 +49,7 @@
            10 FLOODPREMIUM         PIC S9(9) USAGE COMP-5.
            10 WEATHERPERIL         PIC S9(4) USAGE COMP-5.
            10 WEATHERPREMIUM       PIC S9(9) USAGE COMP-5.
-           10 STATUS               PIC S9(4) USAGE COMP-5.
+           10 STATUS1               PIC S9(4) USAGE COMP-5.
            10 REJECTIONREASON      PIC X(255).
       ******************************************************************
       * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 20      *
