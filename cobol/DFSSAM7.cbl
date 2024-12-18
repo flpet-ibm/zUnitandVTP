@@ -21,7 +21,9 @@
 002900 OBJECT-COMPUTER.  IBM-370.                                       00210000
 003000 DATA DIVISION.                                                   00220000
 003100 WORKING-STORAGE SECTION.                                         00230000
-003200 77  GET-UNIQUE              PICTURE XXXX   VALUE 'GU  '.         00240000
+       77  INPANAL     pic x(8) value 'INPANAL'.                        00230001
+       77  PNEDIT      pic x(8) value 'PNEDIT'.
+       77  GET-UNIQUE              PICTURE XXXX   VALUE 'GU  '.
 003300 77  GET-NEXT                PICTURE XXXX   VALUE 'GN  '.         00250000
 003400 77  DLI-INSERT              PICTURE XXXX   VALUE 'ISRT'.         00260000
 003500 01  PARTROOT-SSA.                                                00270000
@@ -194,11 +196,11 @@
 020200 MSG-COMPLETE.                                                    01940000
 020300     MOVE ZEROS TO  MSG-SEG-CNT.                                  01950000
 020400 CALL-REFORMAT.                                                   01960000
-020500     CALL 'INPANAL' USING PARAM-TABLE, TERM-IN-AREA,              01970000
+020500     CALL INPANAL USING PARAM-TABLE, TERM-IN-AREA,                01970000
 020600                          REFORM-MESSAGE, MSG-SEG-CNT.            01980000
 020700 MSG-COMPLETE-EDIT-PN.                                            01990000
 020800     MOVE REFORM-PN          TO PART-NO-EDIT.                     02000000
-020900     CALL 'PNEDIT' USING PART-LINK.                               02010000
+020900     CALL PNEDIT USING PART-LINK.                                 02010000
 021000     IF REJECT-CODE NOT EQUAL TO ' '                              02020000
 021100         MOVE REJECT-MSG01                                        02030000
 021200        TO REJECT-REASON MOVE +46 TO REJ-CHAR-CNT                 02040000
