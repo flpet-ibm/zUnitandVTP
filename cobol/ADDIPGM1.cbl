@@ -39,7 +39,8 @@
                 MY-TEXT
            DISPLAY MY-TEXT.
 
-           MOVE 'ADDIPGM3' TO MY-PGM
+           move 'Flemming' to FSP-FIRST-NAME IN FSP-CUSTOMER-REQUEST
+           MOVE 'ADDIPGM4' TO MY-PGM
            CALL MY-PGM USING DFHEIBLK DFHCOMMAREA MY-CUST
 
 
