@@ -22,9 +22,11 @@
       *
        MAIN SECTION.
        MAIN1.
-           MOVE '1234567890' TO WS-CPR.
-
+           MOVE '1234X27890' TO WS-CPR.
+           CALL WS-MODULE USING  WS-CPR WS-AGE WS-GENDER WS-RC.
            PERFORM DISPLAY-RESULTS.
+
+           MOVE '1234567890' TO WS-CPR.
            CALL WS-MODULE USING  WS-CPR WS-AGE WS-GENDER WS-RC.
            PERFORM DISPLAY-RESULTS.
 
@@ -44,6 +46,10 @@
            CALL WS-MODULE USING  WS-CPR WS-AGE WS-GENDER WS-RC.
            PERFORM DISPLAY-RESULTS.
 
+           MOVE '2201680789' TO WS-CPR.
+           CALL WS-MODULE USING  WS-CPR WS-AGE WS-GENDER WS-RC.
+           PERFORM DISPLAY-RESULTS.
+
            GOBACK.
            EXIT PROGRAM.
 
@@ -51,10 +57,11 @@
            MOVE WS-AGE TO WS-AGE-DISP.
            DISPLAY 'CALLED CPRCHECK WITH ' WS-CPR
                                    '. AGE=' WS-AGE-DISP
+                                   '. GENDER=' WS-GENDER
                                    '. RC=' WS-RC.
-           COMPUTE WS-AGE2 = WS-AGE / 10.
-           MOVE WS-AGE2 TO WS-AGE-DISP.
-           DISPLAY '  AGE DIVIDED BY 10  ' WS-AGE-DISP.
+      *    COMPUTE WS-AGE2 = WS-AGE / 10.
+      *    MOVE WS-AGE2 TO WS-AGE-DISP.
+      *    DISPLAY '  AGE DIVIDED BY 10  ' WS-AGE-DISP.
 
            EXIT SECTION.
 
