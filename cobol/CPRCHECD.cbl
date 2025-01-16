@@ -16,7 +16,12 @@
            05 CPR-MONTH   PIC 99.
            05 CPR-YEAR    PIC 99.
            05 CPR-CONTROL PIC 9999.
-       01  WS-CPR-DIGIT-TAB  REDEFINES WS-CPR.
+           05 CPR-CENTURY-DIGIT REDEFINES CPR-CONTROl PIC 9.
+                88 CPR-BIRTH-1800-2000 VALUE 5 6 7 8.
+                88 CPR-BIRTH-1900      VALUE 0 1 2 3.
+                88 CPR-BIRTH-1900-2000 VALUE 4 9.
+
+       01 WS-CPR-DIGIT-TAB REDEFINES WS-CPR.
            05 WS-CPR-DIGIT PIC 9 OCCURS 10.
        01  WS-DIM-CONST.
            05 DIM-01       PIC S9(4) BINARY VALUE 31.
@@ -48,14 +53,16 @@
        01  WS-FACTOR-TAB REDEFINES WS-FACTOR-CONST.
            05 WS-FACTOR       PIC S9(4) BINARY OCCURS 10.
        01  WS-MODULE       PIC X(8).
-       01  WS-TODAY        PIC 9(8).
+       01  WS-TODAY.
+           05 WS-TODAY-YEAR   PIC 9999.
+           05 WS-TODAY-MONTH  PIC 99.
+           05 WS-TODAY-DAY    PIC 99.
 
        01  WS-I            PIC S9(8) BINARY.
+       01  WS-BIRTH-YEAR   PIC 9999.
        01  WS-SUM          PIC S9(8) BINARY.
        01  WS-DUMMY        PIC S9(8) BINARY.
        01  WS-CHECK-DIGIT  PIC S9(8) BINARY.
-       01  WS-CPR9         PIC 9(10).
-       01  ws-cprx redefines ws-cpr9 pic x(10) .
 
        LINKAGE SECTION.
 
@@ -76,7 +83,11 @@
            CALL WS-MODULE USING WS-TODAY.
            DISPLAY 'TODAY IS ' WS-TODAY.
 
-           PERFORM CHECK-MONTH.
+           PERFORM CHECK-YEAR.
+           IF RC = '0' THEN
+              PERFORM CHECK-MONTH
+           END-IF.
+
            IF RC = '0' THEN
               PERFORM CHECK-DAY
            END-IF.
@@ -85,6 +96,9 @@
               PERFORM CHECK-CHECK-DIGIT
            END-IF.
 
+           IF RC = '0' THEN
+              PERFORM CALCULATE-AGE-AND-GENDER
+           END-IF.
            EXIT PROGRAM.
 
        CHECK-DAY SECTION.
@@ -103,6 +117,14 @@
 
            EXIT.
 
+       CHECK-YEAR SECTION.
+
+           IF CPR-YEAR IS NOT NUMERIC THEN
+              MOVE '3' TO RC
+           END-IF.
+
+           EXIT.
+
         CHECK-CHECK-DIGIT SECTION.
 
            COMPUTE WS-SUM = 0.
@@ -116,4 +138,36 @@
            END-IF
            EXIT.
 
+       CALCULATE-AGE-AND-GENDER SECTION.
+
+           EVALUATE TRUE
+             WHEN CPR-BIRTH-1900
+              COMPUTE WS-BIRTH-YEAR = 1900 + CPR-YEAR
+             WHEN CPR-BIRTH-1800-2000
+                IF CPR-MONTH <= 57 THEN
+                   COMPUTE WS-BIRTH-YEAR = 2000 + CPR-YEAR
+                ELSE
+                   COMPUTE WS-BIRTH-YEAR = 1800 + CPR-YEAR
+                END-IF
+             WHEN CPR-BIRTH-1900-2000
+                IF CPR-MONTH <= 36 THEN
+                   COMPUTE WS-BIRTH-YEAR = 2000 + CPR-YEAR
+                ELSE
+                   COMPUTE WS-BIRTH-YEAR = 1900 + CPR-YEAR
+                END-IF
+           END-EVALUATE.
+
+           COMPUTE LS-AGE = WS-TODAY-YEAR - WS-BIRTH-YEAR - 1.
+           IF WS-TODAY-MONTH > CPR-MONTH OR
+              (WS-TODAY-MONTH = CPR-MONTH AND WS-TODAY-DAY >= CPR-DAY)
+           THEN
+              ADD 1 TO LS-AGE
+           END-IF.
+
+           DIVIDE WS-CPR-DIGIT(10) BY 2 GIVING WS-DUMMY REMAINDER WS-I
+           IF WS-I = 0 THEN
+              MOVE 'F' TO LS-GENDER
+           ELSE
+              MOVE 'M' TO LS-GENDER
+           END-IF.
        END PROGRAM CPRCHECD.
