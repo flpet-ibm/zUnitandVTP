@@ -51,7 +51,18 @@
                 MY-TEXT
            DISPLAY MY-TEXT.
 
-           EXEC CICS RETURN END-EXEC.
+           move 'Flemming' to FSP-FIRST-NAME IN FSP-CUSTOMER-REQUEST
+           MOVE 'ADDIPGM5' TO MY-PGM
+           CALL MY-PGM USING DFHEIBLK DFHCOMMAREA MY-CUST
+
+
+           MOVE FSP-FIRST-NAME IN FSP-CUSTOMER-REQUEST TO
+                MY-TEXT.
+           DISPLAY MY-TEXT.
+           MOVE FSP-LAST-NAME IN FSP-CUSTOMER-REQUEST TO
+                MY-TEXT
+           DISPLAY MY-TEXT.
+                 EXEC CICS RETURN END-EXEC.
 
 
        END PROGRAM ADDIPGM1.
