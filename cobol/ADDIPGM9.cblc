@@ -1,5 +1,5 @@
        ID DIVISION.
-       PROGRAM-ID. ADDIPGM5.
+       PROGRAM-ID. ADDIPGM9.
       ***
       *
       *    (C) 2019 IBM FLEMMING PETERSEN
@@ -33,4 +33,4 @@
 
            MOVE MY-POLICY TO LS-POLICY.
 
-       END PROGRAM ADDIPGM5.
+       END PROGRAM ADDIPGM9.
