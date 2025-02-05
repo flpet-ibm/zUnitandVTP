@@ -29,7 +29,7 @@
 
            MOVE LS-POLICY TO MY-POLICY
 
-           Move 'auto' to FSP-POLICY-TYPE IN FSP-POLICY-REQUEST
+           Move 'auto' to FSP-POLICY-REQUEST IN MY-POLICY
 
            MOVE MY-POLICY TO LS-POLICY.
 
