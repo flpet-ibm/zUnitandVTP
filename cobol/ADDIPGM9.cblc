@@ -1,0 +1,36 @@
+       ID DIVISION.
+       PROGRAM-ID. ADDIPGM5.
+      ***
+      *
+      *    (C) 2019 IBM FLEMMING PETERSEN
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+      *
+       01  MY-POLICY.
+           COPY ADDICPY1.
+
+       01 MY-PGM PIC X(8).
+       01  WS-ABSTIME                  PIC S9(8) COMP VALUE +0.
+
+
+       LINKAGE SECTION.
+       01  LS-POLICY.
+           COPY ADDICPY1.
+
+       PROCEDURE DIVISION USING LS-POLICY.
+      *
+       MAIN SECTION.
+       MAIN1.
+
+           EXEC CICS ASKTIME ABSTIME(WS-ABSTIME)
+           END-EXEC
+
+           MOVE LS-POLICY TO MY-POLICY
+
+           Move 'auto' to FSP-POLICY-TYPE IN FSP-POLICY-REQUEST
+
+           MOVE MY-POLICY TO LS-POLICY.
+
+       END PROGRAM ADDIPGM5.
