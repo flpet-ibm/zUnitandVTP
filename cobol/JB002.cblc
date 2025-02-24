@@ -1,0 +1,28 @@
+       ID DIVISION.
+       PROGRAM-ID. JB002.
+      ***
+      *
+      *    (C) 2019 IBM FLEMMING PETERSEN
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+      *
+       01 INX    PIC S9999 BINARY.
+       01 MY-PGM PIC X(8).
+       01 my-text  pic x(80).
+       LINKAGE SECTION.
+       01  MY-LOAD.
+           COPY JBCOPY1.
+
+       PROCEDURE DIVISION USING MY-LOAD.
+      *
+       MAIN SECTION.
+       MAIN1.
+
+           PERFORM VARYING INX FROM 1 BY 1 UNTIL INX > 150
+              MOVE 'A' TO P016-SARG010-PROF-GR
+                       IN P016-SARG010-PROF-GR-LISTE(inx)
+           END-PERFORM.
+
+       END PROGRAM JB002.
