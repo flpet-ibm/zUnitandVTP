@@ -29,12 +29,12 @@
       *    MOVE 1 TO FSP-CUSTOMER-NUM IN MY-CUST
 
            initialize my-loan.
-
+       
            move P016-SARG010-PROF-GR
              IN P016-SARG010-PROF-GR-LISTE(50) to
              my-text
            display my-text.
-
+       
       *    MOVE FSP-FIRST-NAME IN FSP-CUSTOMER-REQUEST TO
       *         MY-TEXT.
       *    DISPLAY MY-TEXT.
