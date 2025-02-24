@@ -8,7 +8,7 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
       *
-       01  MY-LOAD.
+       01  MY-LOAN.
            COPY JBCOPY1.
 
        01 MY-PGM PIC X(8).
@@ -19,17 +19,16 @@
        MAIN1.
 
            MOVE 'JB003' TO MY-PGM.
-           CALL MY-PGM USING DFHEIBLK DFHCOMMAREA MY-LOAD.
+           CALL MY-PGM USING DFHEIBLK DFHCOMMAREA MY-LOAN.
 
            MOVE 'JB002' TO MY-PGM.
-           CALL MY-PGM USING DFHEIBLK DFHCOMMAREA MY-LOAD.
+           CALL MY-PGM USING DFHEIBLK DFHCOMMAREA MY-LOAN.
       *    MOVE FSP-FIRST-NAME IN FSP-CUSTOMER-REQUEST TO
       *        MY-TEXT.
       *    DISPLAY MY-TEXT.
       *    MOVE 1 TO FSP-CUSTOMER-NUM IN MY-CUST
 
            initialize my-loan.
-
 
       *    MOVE FSP-FIRST-NAME IN FSP-CUSTOMER-REQUEST TO
       *         MY-TEXT.
