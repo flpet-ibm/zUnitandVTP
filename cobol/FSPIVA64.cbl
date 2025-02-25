@@ -57,7 +57,7 @@
        DATA DIVISION.                                                   00005700
        WORKING-STORAGE SECTION.                                         00005800
       * Generated program name variable                                 00005900
-       77 FSPPROCI PIC X(8) VALUE 'FSPPROCI'.                           00006000
+       77 FSPPROCD PIC X(8) VALUE 'FSPPROCD'.                           00006000
        77 WS-STATUS PIC X(40).
                                                                         00006100
                                                                         00006200
@@ -183,7 +183,7 @@
                                                                         00018200
        PROCESS-INPUT.                                                   00018300
                                                                         00018400
-           CALL FSPPROCI USING INPUT-AREA, IOAREA,                      00018500
+           CALL FSPPROCD USING INPUT-AREA, IOAREA,                      00018500
                    DBPCB, GIPCB, GOPCB WS-STATUS.
 
            DISPLAY 'FSPIVA64 status from FSPPROCI: ' ws-status.

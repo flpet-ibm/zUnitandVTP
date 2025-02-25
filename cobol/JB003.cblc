@@ -21,5 +21,6 @@
        MAIN1.
 
            initialize P016-SARG010G.
+           move zero to P016-ANTAL-PROF-GR-DATA.
 
        END PROGRAM JB003.
