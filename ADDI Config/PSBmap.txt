@@ -23,6 +23,6 @@ DFSSAM4,Cobol,DFSSAM14
 DFSSAM5,Cobol,DFSSAM15
 DFSSAM6,Cobol,DFSSAM16
 DFSSAM7,Cobol,DFSSAM17
-DFSIVA6,Assemble,DFSIVP6
+DFSIVA6,Assembler,DFSIVP6
 >>>>>>> branch 'main' of git@github.com:flpet-ibm/zUnitandVTP.git
 EDADN2M,PL1,EDADN2P
