@@ -6,8 +6,7 @@
                  VALUE ZERO.
              09  P016-PROF-GR-AENDRET
                             OCCURS 150 TIMES     PIC X(1).
-
-             09  P016-SARG010G.
+                    09  P016-SARG010G.
                11  P016-SARG010-PROF-GR-LISTE
                             OCCURS 150 TIMES.
                             13 P016-SARG010-PROF-GR PIC X.
