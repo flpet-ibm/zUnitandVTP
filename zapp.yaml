@@ -1,0 +1,23 @@
+name: "Test Configuration"
+version: "1.0.0"
+profiles:
+- name: "Test"
+  type: "test"
+  settings:
+    unitTest:
+      procLib:
+      - ""
+      allocateWorkingDs: true
+      ioDataSetAllocation:
+        ioSpaceUnit: "TRACKS"
+        ioQuant1: 100
+        ioQuant2: 100
+        ioHLQ: "${HLQ}.ZTEST.IO"
+      configDS: "${HLQ}.ZTEST.BZUCFG"
+      resultDS: "${HLQ}.ZTEST.BZURES"
+      userLibraries:
+      - "IBMUSER.UBUILD.LOAD"
+      defaultTestCaseFolder: "/zUnitandVTP/testcase"
+      jobcard: |-
+        //IBMUSER1 JOB ,
+        // MSGCLASS=H,MSGLEVEL=(1,1),TIME=(10),REGION=144M,COND=(16,LT)
