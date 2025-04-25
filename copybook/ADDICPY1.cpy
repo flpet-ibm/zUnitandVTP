@@ -15,3 +15,6 @@
               05 FSP-PHONE-HOME         PIC X(20).
               05 FSP-EMAIL-ADDRESS      PIC X(100).
               05 FSP-POLICY-DATA        PIC X(32267).
+           03 FSP-POLICY-REQUEST REDEFINES FSP-REQUEST-SPECIFIC.
+              05 FSP-POLICY-TYPE        PIC X(10).
+              05 FSP-POLICY-DATE        PIC X(20).

@@ -15,7 +15,8 @@
        01 WS-GENDER       PIC X.
 
        01  WS-RC          PIC X VALUE '0'.
-       01  WS-MODULE      PIC X(8) VALUE 'CPRCHECD'.
+      *01  WS-MODULE      PIC X(8) VALUE 'CPRCHECD'.
+       01  WS-MODULE      PIC X(8) VALUE 'CPRDCHEC'.
 
 
        PROCEDURE DIVISION.
@@ -46,7 +47,7 @@
            CALL WS-MODULE USING  WS-CPR WS-AGE WS-GENDER WS-RC.
            PERFORM DISPLAY-RESULTS.
 
-           MOVE '2201680789' TO WS-CPR.
+           MOVE '2201680029' TO WS-CPR.
            CALL WS-MODULE USING  WS-CPR WS-AGE WS-GENDER WS-RC.
            PERFORM DISPLAY-RESULTS.
 
@@ -55,7 +56,7 @@
 
        DISPLAY-RESULTS SECTION.
            MOVE WS-AGE TO WS-AGE-DISP.
-           DISPLAY 'CALLED CPRCHECK WITH ' WS-CPR
+           DISPLAY 'Called ' WS-MODULE ' with ' WS-CPR
                                    '. AGE=' WS-AGE-DISP
                                    '. GENDER=' WS-GENDER
                                    '. RC=' WS-RC.
