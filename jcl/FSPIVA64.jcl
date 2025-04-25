@@ -8,18 +8,32 @@
 //         DD DSN=DEV.ZAPPBUIL.LOAD,DISP=SHR
 //         DD DSN=IMSV15.SDFSRESL,DISP=SHR
 //         DD DSN=IMS15.IVP.PGMLIB,DISP=SHR
+<<<<<<< HEAD
 //         DD DSN=IMS15.PGMLIB,DISP=SHR
 //         DD DISP=SHR,DSN=IDZ.V16R0M0.SEQAMOD       Debugg
+=======
+//         DD DSN=IMS15.EQAOPTS.LOAD,DISP=SHR
+//         DD DSN=EQAW.SEQAMOD,DISP=SHR
+>>>>>>> refs/remotes/origin/main
 //         DD DISP=SHR,DSN=CEE.SCEERUN       LE
 //         DD DISP=SHR,DSN=CEE.SCEERUN2      LE
+<<<<<<< HEAD
 //*         DD DISP=SHR,DSN=IBMUSER.DLAYDBGB.LOAD
+=======
+>>>>>>> refs/remotes/origin/main
 //PROCLIB  DD DSN=IMSV15.PROCLIB,DISP=SHR
 //IMS      DD DISP=SHR,DSN=IMS15.PSBLIB
 //         DD DISP=SHR,DSN=IMS15.DBDLIB
 //CEEOPTS  DD  *
+<<<<<<< HEAD
   TEST
 //CEEOPTX  DD  *
   STORAGE(00,NONE,00),TEST
+=======
+  TRAP(OFF),STORAGE(00,NONE,00),
+  STACK(4K,4080,ANYWHERE,KEEP,4K,4080)
+  TEST
+>>>>>>> refs/remotes/origin/main
 //SYSOUT   DD SYSOUT=*
 //SYSPRINT DD SYSOUT=*
 //IMSERR   DD SYSOUT=*

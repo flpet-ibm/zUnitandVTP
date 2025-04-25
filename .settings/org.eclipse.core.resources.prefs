@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//assembler/DFSIVA6.asm=UTF-8
 encoding//cobol/DFSSAM1.cbl=UTF-8
 encoding//cobol/DFSSAM2.cbl=UTF-8
 encoding//cobol/DFSSAM3.cbl=UTF-8
@@ -14,6 +15,7 @@ encoding//dbd/DFSIVD3.dbd=UTF-8
 encoding//dbd/DFSIVD4.dbd=UTF-8
 encoding//dbd/DFSIVD5.dbd=UTF-8
 encoding//dbd/DI21PART.dbd=UTF-8
+encoding//psb/DFSIVP6.asm=UTF-8
 encoding//psb/DFSIVP64.psb=UTF-8
 encoding//psb/DFSSAM01.psb=UTF-8
 encoding//psb/DFSSAM02.psb=UTF-8

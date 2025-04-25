@@ -1,0 +1,55 @@
+       ID DIVISION.
+       PROGRAM-ID. JB001.
+      ***
+      *
+      *    (C) 2019 IBM FLEMMING PETERSEN
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+      *
+       01  MY-LOAN.
+           COPY JBCOPY1.
+
+       01 MY-PGM PIC X(8).
+       01 my-text  pic x(80).
+       PROCEDURE DIVISION.
+      *
+       MAIN SECTION.
+       MAIN1.
+
+           MOVE 'JB003' TO MY-PGM.
+           CALL MY-PGM USING DFHEIBLK DFHCOMMAREA MY-LOAN.
+
+           MOVE 'JB002' TO MY-PGM.
+           CALL MY-PGM USING DFHEIBLK DFHCOMMAREA MY-LOAN.
+      *    MOVE FSP-FIRST-NAME IN FSP-CUSTOMER-REQUEST TO
+      *        MY-TEXT.
+      *    DISPLAY MY-TEXT.
+      *    MOVE 1 TO FSP-CUSTOMER-NUM IN MY-CUST
+
+           initialize my-loan.
+
+           move P016-SARG010-PROF-GR
+             IN P016-SARG010-PROF-GR-LISTE(50) to
+             my-text
+           display my-text.
+
+      *    MOVE FSP-FIRST-NAME IN FSP-CUSTOMER-REQUEST TO
+      *         MY-TEXT.
+      *    DISPLAY MY-TEXT.
+      *    MOVE FSP-LAST-NAME IN FSP-CUSTOMER-REQUEST TO
+      *         MY-TEXT
+      *    DISPLAY MY-TEXT.
+
+
+           EXEC CICS RETURN END-EXEC.
+
+       dead-section section.
+
+           move 1 to P016-SARG010-PROF-GR
+             IN P016-SARG010-PROF-GR-LISTE(50).
+
+           exit.
+
+       END PROGRAM JB001.

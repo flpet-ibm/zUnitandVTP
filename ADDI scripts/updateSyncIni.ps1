@@ -63,6 +63,8 @@ Add-Folder -searchExt '*.jclproc' -FileType 'JCL Procs'     -ADDIFolder 'JCL_PRO
 Add-Folder -searchExt 'ims*.txt'  -FileType 'Configuration' -ADDIFolder 'IMST_PGM'
 Add-Folder -searchExt '*.cpy'     -FileType 'COBOL Include' -ADDIFolder 'COPY'
 Add-Folder -searchExt '*.cbl'     -FileType 'zOS Cobol'     -ADDIFolder 'COBOL_MVS'     -GitSubFolder 'cobol'
+Add-Folder -searchExt '*.cblc'     -FileType 'zOS Cobol CICS'     -ADDIFolder 'COBOL_MVS'     -GitSubFolder 'cobol'
+Add-Folder -searchExt '*.asm'     -FileType 'Assembler'           -ADDIFolder 'ASSEMBLER'
 Add-Folder -searchExt '*.pli'     -FileType 'PL1'           -ADDIFolder 'PL1'
 Add-Folder -searchExt '*.inc'     -FileType 'PL1 Include'   -ADDIFolder 'PL1_INCLUDE'
 

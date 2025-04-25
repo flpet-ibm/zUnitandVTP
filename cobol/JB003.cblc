@@ -1,0 +1,26 @@
+       ID DIVISION.
+       PROGRAM-ID. JB003.
+      ***
+      *
+      *    (C) 2019 IBM FLEMMING PETERSEN
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+      *
+       01 INX    PIC S9999 BINARY.
+       01 MY-PGM PIC X(8).
+       01 my-text  pic x(80).
+       LINKAGE SECTION.
+       01  MY-LOAN.
+           COPY JBCOPY1.
+
+       PROCEDURE DIVISION USING MY-LOAN.
+      *
+       MAIN SECTION.
+       MAIN1.
+
+           initialize P016-SARG010G.
+           move zero to P016-ANTAL-PROF-GR-DATA.
+
+       END PROGRAM JB003.

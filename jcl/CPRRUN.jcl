@@ -4,9 +4,26 @@
 //RUN     EXEC PGM=CPRMAIN
 //STEPLIB  DD DSN=IBMUSER.UBUILD.LOAD,DISP=SHR
 //         DD DISP=SHR,DSN=DEV.ZAPPBUIL.LOAD
+<<<<<<< HEAD
 //         DD DISP=SHR,DSN=CEE.SCEERUN
+=======
+//*         DD DISP=SHR,DSN=ISM330.SEQAMOD
+//*         DD DISP=SHR,DSN=CEE.SCEERUN
+//*         DD DISP=SHR,DSN=IBMUSER.DLAYDBGB.LOAD
+//*         DD DISP=SHR,DSN=ISM330.SEQAAUTH
+//*         DD DISP=SHR,DSN=ISM330.SFELLOAD
+//*         DD DISP=SHR,DSN=ISM330.SEQALPA
+//*         DD DISP=SHR,DSN=ISM330.SEQAMOD
+>>>>>>> refs/remotes/origin/main
 //CEEOPTS  DD  *
+<<<<<<< HEAD
   TEST
 /*
+=======
+    TEST
+>>>>>>> refs/remotes/origin/main
 //SYSOUT    DD SYSOUT=*
 //SYSPRINT  DD SYSOUT=*
+//
+
+(,,,TCPIP&192.168.79.1%8001:*)
