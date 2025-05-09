@@ -16,18 +16,15 @@
            05 CPR-MAANED  PIC 99.
            05 CPR-AAR     PIC 99.
            05 CPR-KONTROLCIFFER PIC 9999.
-<<<<<<< HEAD
            05 CPR-AARHUND-CIFFER REDEFINES CPR-KONTROLCIFFER PIC 9.
                 88 CPR-FODSEL-1800-2000 VALUE 5 6 7 8.
                 88 CPR-FODSEL-1900      VALUE 0 1 2 3.
                 88 CPR-FODSEL-1900-2000 VALUE 4 9.
-=======
            05 CPR-CENTURY-DIGIT REDEFINES CPR-KONTROLCIFFER PIC 9.
                 88 CPR-FODSEL-1800-2000 VALUE 5 6 7 8.
                 88 CPR-FODSEL-1900      VALUE 0 1 2 3.
                 88 CPR-FODSEL-1900-2000 VALUE 4 9.
 
->>>>>>> refs/remotes/origin/main
        01  WS-CPR-CIFFER-TABEL  REDEFINES WS-CPR.
            05 WS-CPR-CIFFER PIC 9 OCCURS 10.
        01  WS-DIM-KONSTANTER.
@@ -60,7 +57,6 @@
        01  WS-FAKTOR-TAB REDEFINES WS-FAKTOR-KONSTANT.
            05 WS-FAKTOR       PIC S9(4) BINARY OCCURS 10.
        01  WS-MODUL        PIC X(8).
-<<<<<<< HEAD
        01  WS-IDAG.
            05 WS-IDAG-AAR     PIC 9999.
            05 WS-IDAG-MAANED  PIC 99.
@@ -126,7 +122,7 @@
 <<<<<<< HEAD
               PERFORM BEREGN-ALDER-OG-KOEN
 =======
-              PERFORM BEREGN-ALDER-OG-KOEN    
+              PERFORM BEREGN-ALDER-OG-KOEN
 >>>>>>> refs/remotes/origin/main
            END-IF.
            EXIT PROGRAM.

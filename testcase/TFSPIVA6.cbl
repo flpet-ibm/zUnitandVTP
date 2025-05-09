@@ -3,9 +3,226 @@
       *| TFSPIVA6                                                      |
       *| UNIT TEST FOR Z/OS: TEST CASE PROGRAM                         |
       *| TEST CASE VERSION: 202                                        |
-      *| DATE GENERATED: 04/25/2025 15:26                              |
-      *| ID: 92ff42dc-35cb-49c7-9562-1661795b9779                      |
+      *| DATE GENERATED: 04/25/2025 21:49                              |
+      *| ID: 50e58cbc-b7ce-4bbd-860d-3c12bb35eeb5                      |
       *+---------------------------------------------------------------+
+      *+---------------------------------------------------------------+
+      *| UNIT TEST FOR Z/OS: TEST_REFERENCE1                           |
+      *|     FOR TEST REFERENCE1                                       |
+      *| TEST CASE VERSION: 202                                        |
+      *+---------------------------------------------------------------+
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. 'TEST_REFERENCE1'.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 PROGRAM-NAME   PIC X(8)  VALUE 'FSPIVA64'.
+       01 AZ-CSECT       PIC X(72) VALUE SPACES.
+       01 BZ-ASSERT.
+         03 MESSAGE-LEN PIC S9(4) COMP-4 VALUE 24.
+         03 MESSAGE-TXT PIC X(254) VALUE 'HELLO FROM TEST CALLBACK'.
+       01  BZ-P1 PIC S9(9) COMP-4 VALUE 4.
+       01  BZ-P2 PIC S9(9) COMP-4 VALUE 2001.
+       01  BZ-P3 PIC X(3) VALUE 'AZU'.
+       01 BZ-TRACE.
+         03 TRACE-LEN       PIC S9(4) COMP-4 VALUE 5.
+         03 TRACE-TXT       PIC X(254) VALUE 'TRACE'.
+       01 BZUASSRT          PIC X(8) VALUE 'BZUASSRT'.
+       01 BZUTRACE          PIC X(8) VALUE 'BZUTRACE'.
+       01 BZUGETEP          PIC X(8) VALUE 'BZUGETEP'.
+       01 AZ-EP-PTR         USAGE IS POINTER.
+       01 AZ-TRACE-PTR      POINTER.
+       01 ASSERT-ST.
+         03 ASSERT-RC PIC 9(9) BINARY VALUE 4.
+         03 ASSERT-TEXT PIC 9(4) BINARY VALUE 0.
+       01 AZ-TEST-NAME-LEN       PIC S9(9) COMP-5.
+       01 AZ-RC-WORK             PIC S9(4) USAGE BINARY.
+       01 AZ-SUB-GETARG     PIC X(8)  VALUE 'BZUGTARG'.
+       01 AZ-SUB-PROGRAM    PIC X(8)  VALUE 'FSPIVA64'.
+       01 AZ-SUB-CSECT      PIC X(72) VALUE SPACES.
+       01 AZ-SUB-ARG-LIST   USAGE POINTER.
+       LOCAL-STORAGE SECTION.
+       LINKAGE SECTION.
+       01 AZ-TEST                   PIC X(80).
+       01 AZ-ARG-LIST.
+         03 ARG-LENGTH PIC 9(4) COMP-4.
+         03 ARG-DATA PIC X(256).
+       01 AZ-INFO-BLOCK.
+         COPY EQAITERC.
+       01 AZ-PROC-PTR       USAGE IS PROCEDURE-POINTER.
+       1 AZ-PSB-ADDRS.
+           3 AZ-PCB1 POINTER.
+           3 AZ-PCB2 POINTER.
+           3 AZ-PCB3 POINTER.
+           3 AZ-PCB4 POINTER.
+      *  *** IOPCB : ZUT00000023
+       1 ZUT00000023.
+      *    *** LTERM-NAME : ZUT00000024
+         2 ZUT00000024 PIC  X(8).
+      *    *** IO-RESERVE-IMS : ZUT00000025
+         2 ZUT00000025 PIC  X(2).
+      *    *** IO-STATUS : ZUT00000026
+         2 ZUT00000026 PIC  X(2).
+      *    *** CURR-DATE : ZUT00000027
+         2 ZUT00000027 PIC  X(4).
+      *    *** CURR-TIME : ZUT00000028
+         2 ZUT00000028 PIC  X(4).
+      *    *** IN-MSN : ZUT00000029
+         2 ZUT00000029 PIC  X(4).
+      *    *** MODNAME : ZUT0000002A
+         2 ZUT0000002A PIC  X(8).
+      *    *** USERID : ZUT0000002B
+         2 ZUT0000002B PIC  X(8).
+      *  *** DBPCB : ZUT0000002C
+       1 ZUT0000002C.
+      *    *** DBD-NAME : ZUT0000002D
+         2 ZUT0000002D PIC  X(8).
+      *    *** SEG-LEVEL : ZUT0000002E
+         2 ZUT0000002E PIC  X(2).
+      *    *** DBSTATUS : ZUT0000002F
+         2 ZUT0000002F PIC  X(2).
+      *    *** PROC-OPTIONS : ZUT00000030
+         2 ZUT00000030 PIC  X(4).
+      *    *** RESERVE-DLI : ZUT00000031
+         2 ZUT00000031 PIC  X(4).
+      *    *** SEG-NAME-FB : ZUT00000032
+         2 ZUT00000032 PIC  X(8).
+      *    *** LENGTH-FB-KEY : ZUT00000033
+         2 ZUT00000033 PIC  9(4).
+      *    *** NUMB-SENS-SEGS : ZUT00000034
+         2 ZUT00000034 PIC  9(4).
+      *    *** KEY-FB-AREA : ZUT00000035
+         2 ZUT00000035 PIC  X(17).
+      *  *** GIPCB : ZUT00000036
+       1 ZUT00000036.
+      *    *** DBD-NAME : ZUT00000037
+         2 ZUT00000037 PIC  X(8).
+      *    *** SEG-LEVEL : ZUT00000038
+         2 ZUT00000038 PIC  X(2).
+      *    *** GI-STATUS : ZUT00000039
+         2 ZUT00000039 PIC  X(2).
+      *    *** PROC-OPTIONS : ZUT0000003A
+         2 ZUT0000003A PIC  X(4).
+      *    *** RESERVE-DLI : ZUT0000003B
+         2 ZUT0000003B PIC  X(4).
+      *    *** SEG-NAME-FB : ZUT0000003C
+         2 ZUT0000003C PIC  X(8).
+      *    *** LENGTH-FB-KEY : ZUT0000003D
+         2 ZUT0000003D PIC  9(4).
+      *    *** NUMB-SENS-SEGS : ZUT0000003E
+         2 ZUT0000003E PIC  9(4).
+      *    *** KEY-FB-AREA : ZUT0000003F
+         2 ZUT0000003F PIC  X(17).
+      *  *** GOPCB : ZUT00000040
+       1 ZUT00000040.
+      *    *** DBD-NAME : ZUT00000041
+         2 ZUT00000041 PIC  X(8).
+      *    *** SEG-LEVEL : ZUT00000042
+         2 ZUT00000042 PIC  X(2).
+      *    *** GO-STATUS : ZUT00000043
+         2 ZUT00000043 PIC  X(2).
+      *    *** PROC-OPTIONS : ZUT00000044
+         2 ZUT00000044 PIC  X(4).
+      *    *** RESERVE-DLI : ZUT00000045
+         2 ZUT00000045 PIC  x(4).
+      *    *** SEG-NAME-FB : ZUT00000046
+         2 ZUT00000046 PIC  X(8).
+      *    *** LENGTH-FB-KEY : ZUT00000047
+         2 ZUT00000047 PIC  9(4).
+      *    *** NUMB-SENS-SEGS : ZUT00000048
+         2 ZUT00000048 PIC  9(4).
+      *    *** KEY-FB-AREA : ZUT00000049
+         2 ZUT00000049 PIC  X(17).
+       01  AZ-SUB-PGM-LIST.
+         03  AZ-SUB-PGM-COUNT       PIC 9(4) COMP-4.
+         03  AZ-SUB-PGM-ADDRS  OCCURS 1 TO 100 TIMES
+                       DEPENDING ON AZ-SUB-PGM-COUNT.
+           05  AZ-SUB-PGM-ADDR      USAGE POINTER.
+           05  AZ-SUB-PGM-LGTH      PIC 9(8) COMP-4.
+       01  AZ-LINKPARM1             PIC X(32768).
+       01  AZ-LINKPARM2             PIC X(32768).
+       PROCEDURE DIVISION USING AZ-TEST AZ-PSB-ADDRS AZ-INFO-BLOCK.
+      * START
+           DISPLAY 'AZU0000I TEST_REFERENCE1 STARTED...'
+           MOVE 0 TO AZ-TEST-NAME-LEN.
+           INSPECT AZ-TEST TALLYING AZ-TEST-NAME-LEN FOR
+           CHARACTERS BEFORE INITIAL SPACE.
+      * SET ADDRESS FOR IOPCB
+           SET ADDRESS OF ZUT00000023 TO AZ-PCB1
+      * SET ADDRESS FOR DBPCB
+           SET ADDRESS OF ZUT0000002C TO AZ-PCB2
+      * SET ADDRESS FOR GIPCB
+           SET ADDRESS OF ZUT00000036 TO AZ-PCB3
+      * SET ADDRESS FOR GOPCB
+           SET ADDRESS OF ZUT00000040 TO AZ-PCB4
+      * INITIALIZE PARAMETER
+           PERFORM INITIALIZE-PARM
+      * SET AREA ADDRESS TO POINTER
+      * GET SUB PROGRAM ARGUMENT
+           DISPLAY 'AZU0000I CALL BZUGTARG FOR FSPIVA64'
+           CALL AZ-SUB-GETARG USING AZ-SUB-PROGRAM AZ-SUB-CSECT
+             RETURNING AZ-SUB-ARG-LIST
+           IF AZ-SUB-ARG-LIST = NULL
+             MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+             STRING 'SUB PROGRAM FSPIVA64 NOT FOUND.'
+               DELIMITED BY SIZE
+               INTO MESSAGE-TXT OF BZ-ASSERT
+               WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+             END-STRING
+             SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+             PERFORM THROW-ASSERTION-M
+           ELSE
+              SET ADDRESS OF AZ-SUB-PGM-LIST TO AZ-SUB-ARG-LIST
+              IF AZ-SUB-PGM-COUNT NOT EQUAL 4
+                MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+                STRING 'SUB PROGRAM ARGUMENT COUNT DOES NOT MATCH.'
+                  DELIMITED BY SIZE
+                  INTO MESSAGE-TXT OF BZ-ASSERT
+                  WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+                END-STRING
+                SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+                PERFORM THROW-ASSERTION-M
+              END-IF
+           END-IF.
+      * SET INPUT VALUE
+           MOVE 0 TO RETURN-CODE.
+      * CALL TEST PROGRAM
+           DISPLAY 'AZU0000I CALL FSPIVA64'
+           CALL BZUGETEP USING BY REFERENCE PROGRAM-NAME AZ-CSECT
+             RETURNING AZ-EP-PTR.
+           IF AZ-EP-PTR = NULL THEN
+             MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+             STRING 'UNABLE TO GET THE ENTRY POINT BY BZUGETEP.'
+               DELIMITED BY SIZE
+               INTO MESSAGE-TXT OF BZ-ASSERT
+               WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+             END-STRING
+             SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+             PERFORM THROW-ASSERTION-M
+             GOBACK
+           END-IF
+           SET ADDRESS OF AZ-PROC-PTR TO AZ-EP-PTR.
+           CALL AZ-PROC-PTR
+           USING BY VALUE AZ-PCB1 AZ-PCB2 AZ-PCB3 AZ-PCB4
+           .
+      * EVALUATE OUTPUT VALUE
+           MOVE 4 TO RETURN-CODE
+      * END
+           DISPLAY 'AZU0000I TEST_REFERENCE1 END.'
+           GOBACK.
+       INITIALIZE-PARM.
+           EXIT.
+       THROW-ASSERTION-M.
+           DISPLAY 'AZU0000I *******************************************
+      -    '*************************************'
+           DISPLAY 'AZU2001W THE TEST "' AZ-TEST(1:AZ-TEST-NAME-LEN) '"
+      -    'FAILED DUE TO AN ASSERTION.'
+           DISPLAY 'AZU1101I ' MESSAGE-TXT OF BZ-ASSERT(1:MESSAGE-LEN
+           OF BZ-ASSERT)
+           DISPLAY 'AZU0000I *******************************************
+      -    '*************************************'
+           CALL BZUASSRT USING BZ-P1 BZ-P2 BZ-P3 BZ-ASSERT
+           EXIT.
+       END PROGRAM TEST_REFERENCE1.
       *+---------------------------------------------------------------+
       *| UNIT TEST FOR Z/OS: TEST_TEST1                                |
       *|     FOR TEST TEST1                                            |
@@ -224,6 +441,223 @@
            EXIT.
        END PROGRAM TEST_TEST1.
       *+---------------------------------------------------------------+
+      *| UNIT TEST FOR Z/OS: TEST_TEST2                                |
+      *|     FOR TEST TEST2                                            |
+      *| TEST CASE VERSION: 202                                        |
+      *+---------------------------------------------------------------+
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. 'TEST_TEST2'.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 PROGRAM-NAME   PIC X(8)  VALUE 'FSPIVA64'.
+       01 AZ-CSECT       PIC X(72) VALUE SPACES.
+       01 BZ-ASSERT.
+         03 MESSAGE-LEN PIC S9(4) COMP-4 VALUE 24.
+         03 MESSAGE-TXT PIC X(254) VALUE 'HELLO FROM TEST CALLBACK'.
+       01  BZ-P1 PIC S9(9) COMP-4 VALUE 4.
+       01  BZ-P2 PIC S9(9) COMP-4 VALUE 2001.
+       01  BZ-P3 PIC X(3) VALUE 'AZU'.
+       01 BZ-TRACE.
+         03 TRACE-LEN       PIC S9(4) COMP-4 VALUE 5.
+         03 TRACE-TXT       PIC X(254) VALUE 'TRACE'.
+       01 BZUASSRT          PIC X(8) VALUE 'BZUASSRT'.
+       01 BZUTRACE          PIC X(8) VALUE 'BZUTRACE'.
+       01 BZUGETEP          PIC X(8) VALUE 'BZUGETEP'.
+       01 AZ-EP-PTR         USAGE IS POINTER.
+       01 AZ-TRACE-PTR      POINTER.
+       01 ASSERT-ST.
+         03 ASSERT-RC PIC 9(9) BINARY VALUE 4.
+         03 ASSERT-TEXT PIC 9(4) BINARY VALUE 0.
+       01 AZ-TEST-NAME-LEN       PIC S9(9) COMP-5.
+       01 AZ-RC-WORK             PIC S9(4) USAGE BINARY.
+       01 AZ-SUB-GETARG     PIC X(8)  VALUE 'BZUGTARG'.
+       01 AZ-SUB-PROGRAM    PIC X(8)  VALUE 'FSPIVA64'.
+       01 AZ-SUB-CSECT      PIC X(72) VALUE SPACES.
+       01 AZ-SUB-ARG-LIST   USAGE POINTER.
+       LOCAL-STORAGE SECTION.
+       LINKAGE SECTION.
+       01 AZ-TEST                   PIC X(80).
+       01 AZ-ARG-LIST.
+         03 ARG-LENGTH PIC 9(4) COMP-4.
+         03 ARG-DATA PIC X(256).
+       01 AZ-INFO-BLOCK.
+         COPY EQAITERC.
+       01 AZ-PROC-PTR       USAGE IS PROCEDURE-POINTER.
+       1 AZ-PSB-ADDRS.
+           3 AZ-PCB1 POINTER.
+           3 AZ-PCB2 POINTER.
+           3 AZ-PCB3 POINTER.
+           3 AZ-PCB4 POINTER.
+      *  *** IOPCB : ZUT00000023
+       1 ZUT00000023.
+      *    *** LTERM-NAME : ZUT00000024
+         2 ZUT00000024 PIC  X(8).
+      *    *** IO-RESERVE-IMS : ZUT00000025
+         2 ZUT00000025 PIC  X(2).
+      *    *** IO-STATUS : ZUT00000026
+         2 ZUT00000026 PIC  X(2).
+      *    *** CURR-DATE : ZUT00000027
+         2 ZUT00000027 PIC  X(4).
+      *    *** CURR-TIME : ZUT00000028
+         2 ZUT00000028 PIC  X(4).
+      *    *** IN-MSN : ZUT00000029
+         2 ZUT00000029 PIC  X(4).
+      *    *** MODNAME : ZUT0000002A
+         2 ZUT0000002A PIC  X(8).
+      *    *** USERID : ZUT0000002B
+         2 ZUT0000002B PIC  X(8).
+      *  *** DBPCB : ZUT0000002C
+       1 ZUT0000002C.
+      *    *** DBD-NAME : ZUT0000002D
+         2 ZUT0000002D PIC  X(8).
+      *    *** SEG-LEVEL : ZUT0000002E
+         2 ZUT0000002E PIC  X(2).
+      *    *** DBSTATUS : ZUT0000002F
+         2 ZUT0000002F PIC  X(2).
+      *    *** PROC-OPTIONS : ZUT00000030
+         2 ZUT00000030 PIC  X(4).
+      *    *** RESERVE-DLI : ZUT00000031
+         2 ZUT00000031 PIC  X(4).
+      *    *** SEG-NAME-FB : ZUT00000032
+         2 ZUT00000032 PIC  X(8).
+      *    *** LENGTH-FB-KEY : ZUT00000033
+         2 ZUT00000033 PIC  9(4).
+      *    *** NUMB-SENS-SEGS : ZUT00000034
+         2 ZUT00000034 PIC  9(4).
+      *    *** KEY-FB-AREA : ZUT00000035
+         2 ZUT00000035 PIC  X(17).
+      *  *** GIPCB : ZUT00000036
+       1 ZUT00000036.
+      *    *** DBD-NAME : ZUT00000037
+         2 ZUT00000037 PIC  X(8).
+      *    *** SEG-LEVEL : ZUT00000038
+         2 ZUT00000038 PIC  X(2).
+      *    *** GI-STATUS : ZUT00000039
+         2 ZUT00000039 PIC  X(2).
+      *    *** PROC-OPTIONS : ZUT0000003A
+         2 ZUT0000003A PIC  X(4).
+      *    *** RESERVE-DLI : ZUT0000003B
+         2 ZUT0000003B PIC  X(4).
+      *    *** SEG-NAME-FB : ZUT0000003C
+         2 ZUT0000003C PIC  X(8).
+      *    *** LENGTH-FB-KEY : ZUT0000003D
+         2 ZUT0000003D PIC  9(4).
+      *    *** NUMB-SENS-SEGS : ZUT0000003E
+         2 ZUT0000003E PIC  9(4).
+      *    *** KEY-FB-AREA : ZUT0000003F
+         2 ZUT0000003F PIC  X(17).
+      *  *** GOPCB : ZUT00000040
+       1 ZUT00000040.
+      *    *** DBD-NAME : ZUT00000041
+         2 ZUT00000041 PIC  X(8).
+      *    *** SEG-LEVEL : ZUT00000042
+         2 ZUT00000042 PIC  X(2).
+      *    *** GO-STATUS : ZUT00000043
+         2 ZUT00000043 PIC  X(2).
+      *    *** PROC-OPTIONS : ZUT00000044
+         2 ZUT00000044 PIC  X(4).
+      *    *** RESERVE-DLI : ZUT00000045
+         2 ZUT00000045 PIC  x(4).
+      *    *** SEG-NAME-FB : ZUT00000046
+         2 ZUT00000046 PIC  X(8).
+      *    *** LENGTH-FB-KEY : ZUT00000047
+         2 ZUT00000047 PIC  9(4).
+      *    *** NUMB-SENS-SEGS : ZUT00000048
+         2 ZUT00000048 PIC  9(4).
+      *    *** KEY-FB-AREA : ZUT00000049
+         2 ZUT00000049 PIC  X(17).
+       01  AZ-SUB-PGM-LIST.
+         03  AZ-SUB-PGM-COUNT       PIC 9(4) COMP-4.
+         03  AZ-SUB-PGM-ADDRS  OCCURS 1 TO 100 TIMES
+                       DEPENDING ON AZ-SUB-PGM-COUNT.
+           05  AZ-SUB-PGM-ADDR      USAGE POINTER.
+           05  AZ-SUB-PGM-LGTH      PIC 9(8) COMP-4.
+       01  AZ-LINKPARM1             PIC X(32768).
+       01  AZ-LINKPARM2             PIC X(32768).
+       PROCEDURE DIVISION USING AZ-TEST AZ-PSB-ADDRS AZ-INFO-BLOCK.
+      * START
+           DISPLAY 'AZU0000I TEST_TEST2 STARTED...'
+           MOVE 0 TO AZ-TEST-NAME-LEN.
+           INSPECT AZ-TEST TALLYING AZ-TEST-NAME-LEN FOR
+           CHARACTERS BEFORE INITIAL SPACE.
+      * SET ADDRESS FOR IOPCB
+           SET ADDRESS OF ZUT00000023 TO AZ-PCB1
+      * SET ADDRESS FOR DBPCB
+           SET ADDRESS OF ZUT0000002C TO AZ-PCB2
+      * SET ADDRESS FOR GIPCB
+           SET ADDRESS OF ZUT00000036 TO AZ-PCB3
+      * SET ADDRESS FOR GOPCB
+           SET ADDRESS OF ZUT00000040 TO AZ-PCB4
+      * INITIALIZE PARAMETER
+           PERFORM INITIALIZE-PARM
+      * SET AREA ADDRESS TO POINTER
+      * GET SUB PROGRAM ARGUMENT
+           DISPLAY 'AZU0000I CALL BZUGTARG FOR FSPIVA64'
+           CALL AZ-SUB-GETARG USING AZ-SUB-PROGRAM AZ-SUB-CSECT
+             RETURNING AZ-SUB-ARG-LIST
+           IF AZ-SUB-ARG-LIST = NULL
+             MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+             STRING 'SUB PROGRAM FSPIVA64 NOT FOUND.'
+               DELIMITED BY SIZE
+               INTO MESSAGE-TXT OF BZ-ASSERT
+               WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+             END-STRING
+             SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+             PERFORM THROW-ASSERTION-M
+           ELSE
+              SET ADDRESS OF AZ-SUB-PGM-LIST TO AZ-SUB-ARG-LIST
+              IF AZ-SUB-PGM-COUNT NOT EQUAL 4
+                MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+                STRING 'SUB PROGRAM ARGUMENT COUNT DOES NOT MATCH.'
+                  DELIMITED BY SIZE
+                  INTO MESSAGE-TXT OF BZ-ASSERT
+                  WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+                END-STRING
+                SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+                PERFORM THROW-ASSERTION-M
+              END-IF
+           END-IF.
+      * SET INPUT VALUE
+           MOVE 0 TO RETURN-CODE.
+      * CALL TEST PROGRAM
+           DISPLAY 'AZU0000I CALL FSPIVA64'
+           CALL BZUGETEP USING BY REFERENCE PROGRAM-NAME AZ-CSECT
+             RETURNING AZ-EP-PTR.
+           IF AZ-EP-PTR = NULL THEN
+             MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+             STRING 'UNABLE TO GET THE ENTRY POINT BY BZUGETEP.'
+               DELIMITED BY SIZE
+               INTO MESSAGE-TXT OF BZ-ASSERT
+               WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+             END-STRING
+             SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+             PERFORM THROW-ASSERTION-M
+             GOBACK
+           END-IF
+           SET ADDRESS OF AZ-PROC-PTR TO AZ-EP-PTR.
+           CALL AZ-PROC-PTR
+           USING BY VALUE AZ-PCB1 AZ-PCB2 AZ-PCB3 AZ-PCB4
+           .
+      * EVALUATE OUTPUT VALUE
+           MOVE 4 TO RETURN-CODE
+      * END
+           DISPLAY 'AZU0000I TEST_TEST2 END.'
+           GOBACK.
+       INITIALIZE-PARM.
+           EXIT.
+       THROW-ASSERTION-M.
+           DISPLAY 'AZU0000I *******************************************
+      -    '*************************************'
+           DISPLAY 'AZU2001W THE TEST "' AZ-TEST(1:AZ-TEST-NAME-LEN) '"
+      -    'FAILED DUE TO AN ASSERTION.'
+           DISPLAY 'AZU1101I ' MESSAGE-TXT OF BZ-ASSERT(1:MESSAGE-LEN
+           OF BZ-ASSERT)
+           DISPLAY 'AZU0000I *******************************************
+      -    '*************************************'
+           CALL BZUASSRT USING BZ-P1 BZ-P2 BZ-P3 BZ-ASSERT
+           EXIT.
+       END PROGRAM TEST_TEST2.
+      *+---------------------------------------------------------------+
       *| UNIT TEST FOR Z/OS: BZU_TEST                                  |
       *|     CALLBACK DEFINITION FOR TEST                              |
       *| TEST CASE VERSION: 202                                        |
@@ -370,8 +804,13 @@
            EVALUATE AZ-TEST(1:AZ-TEST-NAME-LEN)
            WHEN SPACE
              CONTINUE
+           WHEN 'REFERENCE1'
+             MOVE 4 TO RETURN-CODE
            WHEN 'TEST1'
              PERFORM CHECK-REC-TEST1
+             MOVE 4 TO RETURN-CODE
+           WHEN 'TEST2'
+             PERFORM CHECK-REC-TEST2
              MOVE 4 TO RETURN-CODE
            WHEN OTHER
              CONTINUE
@@ -383,6 +822,51 @@
            EXIT.
        CHECK-REC-TEST1.
       * CHECK RECORD COUNT FOR TEST1
+      * FOR FSPPROCD
+           MOVE 1 TO AZ-GRP-INDEX
+           MOVE 0 TO AZ-FLAG-IN
+           MOVE RETURN-CODE TO AZ-RC-WORK
+           CALL 'GTMEMRC' USING TC-WORK-AREA OF AZ-INFO-BLOCK
+             AZ-GRP-INDEX AZ-FLAG-IN AZ-RECORD-PTR
+           SET ADDRESS OF AZ-RECORD-COUNT TO AZ-RECORD-PTR
+           MOVE AZ-RC-WORK TO RETURN-CODE
+           IF AZ-RECORD-COUNT NOT EQUAL 1 THEN
+             MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+             MOVE AZ-RECORD-COUNT TO AZ-OUTPUT-COUNT-STR
+             STRING
+               'EXPECTED RECORD COUNT IS ''1''. '
+               'BUT REAL RECORD COUNT IS ''' AZ-OUTPUT-COUNT-STR ''''
+               ' IN FSPPROCD.'
+               DELIMITED BY SIZE INTO MESSAGE-TXT OF BZ-ASSERT
+               WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+             END-STRING
+             SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+             PERFORM THROW-ASSERTION-M
+           END-IF.
+      * FOR CBLTDLI GN ''GIPCB''
+           MOVE 2 TO AZ-GRP-INDEX
+           MOVE 0 TO AZ-FLAG-IN
+           MOVE RETURN-CODE TO AZ-RC-WORK
+           CALL 'GTMEMRC' USING TC-WORK-AREA OF AZ-INFO-BLOCK
+             AZ-GRP-INDEX AZ-FLAG-IN AZ-RECORD-PTR
+           SET ADDRESS OF AZ-RECORD-COUNT TO AZ-RECORD-PTR
+           MOVE AZ-RC-WORK TO RETURN-CODE
+           IF AZ-RECORD-COUNT NOT EQUAL 2 THEN
+             MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+             MOVE AZ-RECORD-COUNT TO AZ-OUTPUT-COUNT-STR
+             STRING
+               'EXPECTED RECORD COUNT IS ''2''. '
+               'BUT REAL RECORD COUNT IS ''' AZ-OUTPUT-COUNT-STR ''''
+               ' IN CBLTDLI GN ''GIPCB''.'
+               DELIMITED BY SIZE INTO MESSAGE-TXT OF BZ-ASSERT
+               WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+             END-STRING
+             SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+             PERFORM THROW-ASSERTION-M
+           END-IF.
+           EXIT.
+       CHECK-REC-TEST2.
+      * CHECK RECORD COUNT FOR TEST2
       * FOR FSPPROCD
            MOVE 1 TO AZ-GRP-INDEX
            MOVE 0 TO AZ-FLAG-IN
@@ -449,7 +933,7 @@
        WORKING-STORAGE SECTION.
        01 AZ-TEST-NAME-LEN      PIC S9(9) COMP-5.
        01 AZ-TESTCASE-ID        PIC X(36)
-           VALUE '92ff42dc-35cb-49c7-9562-1661795b9779'.
+           VALUE '50e58cbc-b7ce-4bbd-860d-3c12bb35eeb5'.
        LINKAGE SECTION.
        01 AZ-TEST               PIC X(80).
        01 AZ-TEST-ID            PIC X(80).
@@ -685,8 +1169,12 @@
            EVALUATE AZ-TEST(1:AZ-TEST-LEN)
            WHEN SPACE
              CONTINUE
+           WHEN 'REFERENCE1'
+             PERFORM P-OUTPUT-REFERENCE1
            WHEN 'TEST1'
              PERFORM P-OUTPUT-TEST1
+           WHEN 'TEST2'
+             PERFORM P-OUTPUT-TEST2
            WHEN OTHER
              CONTINUE
            END-EVALUATE.
@@ -711,8 +1199,12 @@
            EVALUATE AZ-TEST(1:AZ-TEST-LEN)
            WHEN SPACE
              CONTINUE
+           WHEN 'REFERENCE1'
+             PERFORM P-INPUT-REFERENCE1
            WHEN 'TEST1'
              PERFORM P-INPUT-TEST1
+           WHEN 'TEST2'
+             PERFORM P-INPUT-TEST2
            WHEN OTHER
              CONTINUE
            END-EVALUATE.
@@ -721,6 +1213,13 @@
        TEARDOWN.
            DISPLAY 'AZU0000I PGM_FSPPROCD END.'
            EXIT.
+       P-OUTPUT-REFERENCE1.
+           IF AZ-RECORD-COUNT-OT = 0 THEN
+             CONTINUE
+           ELSE
+             CONTINUE
+           END-IF.
+           EXIT.
        P-OUTPUT-TEST1.
            IF AZ-RECORD-COUNT-OT = 0 THEN
              CONTINUE
@@ -728,7 +1227,28 @@
              CONTINUE
            END-IF.
            EXIT.
+       P-OUTPUT-TEST2.
+           IF AZ-RECORD-COUNT-OT = 0 THEN
+             CONTINUE
+           ELSE
+             CONTINUE
+           END-IF.
+           EXIT.
+       P-INPUT-REFERENCE1.
+           IF AZ-RECORD-COUNT-IN = 0 THEN
+             CONTINUE
+           ELSE
+             CONTINUE
+           END-IF.
+           EXIT.
        P-INPUT-TEST1.
+           IF AZ-RECORD-COUNT-IN = 0 THEN
+             CONTINUE
+           ELSE
+             CONTINUE
+           END-IF.
+           EXIT.
+       P-INPUT-TEST2.
            IF AZ-RECORD-COUNT-IN = 0 THEN
              CONTINUE
            ELSE
