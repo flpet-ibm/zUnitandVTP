@@ -120,7 +120,7 @@
       * DATA AREA OUTPUT                                                01200000
                                                                         01210000
        01  OUTPUT-AREA.                                                 01220000
-           02  OUT-LL       PICTURE S9(3) COMP VALUE +95.               01230000
+           02  OUT-LL       PICTURE S9(3) COMP VALUE +93.               01230000
            02  OUT-ZZ       PICTURE S9(3) COMP VALUE +0.                01240000
            02  OUTPUT-LINE  PICTURE X(85) VALUE SPACES.                 01250000
            02  OUTPUT-DATA REDEFINES OUTPUT-LINE.                       01260000

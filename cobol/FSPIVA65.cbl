@@ -182,7 +182,7 @@
                                                                         00018200
        PROCESS-INPUT.                                                   00018300
                                                                         00018400
-           CALL FSPPROCI USING INPUT-AREA, IOAREA,                      00018500
+           CALL 'FSPPROCI' USING INPUT-AREA, IOAREA,                    00018500
                    DBPCB, GIPCB, GOPCB.                                 00018600
                                                                         00018700
                                                                         00018800

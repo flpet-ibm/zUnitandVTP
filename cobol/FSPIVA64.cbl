@@ -1,4 +1,3 @@
- CBL  APOST,DYNAM                                                       00000100
        IDENTIFICATION DIVISION.                                         00000200
        PROGRAM-ID.  FSPIVA64                                            00000300
       *                                                                 00000400

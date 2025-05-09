@@ -396,7 +396,7 @@
            EXIT.                                                        00037300
                                                                         00037400
        PRINT-OUTPUT.                                                    00037500
-           CALL FSPISRTO USING OUTPUT-AREA,                             00037600
+           CALL 'FSPISRTO' USING OUTPUT-AREA,                           00037600
                                GIPCB, GOPCB.                            00037700
            EXIT.                                                        00037800
                                                                         00037900
