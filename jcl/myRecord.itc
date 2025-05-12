@@ -1,0 +1,16 @@
+{
+	"testCases": [
+		{
+			"name": "myRecord", 
+			"createdBy": "", 
+			"description": "", 
+			"dataset": "/zUnitandVTP/jcl/myRecord.rec", 
+			"type": "Batch", 
+			"userLibs": [
+				{
+					"lib": "IBMUSER.UBUILD.LOAD"
+				}
+			]
+		}
+	]
+}
