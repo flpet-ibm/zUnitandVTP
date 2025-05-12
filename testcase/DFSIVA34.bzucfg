@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<runner:RunnerConfiguration xmlns:runner="http://www.ibm.com/zUnit/4.0.0.0/TestRunner" id="31841fd5-44ca-41cd-82d3-6f5a34a79c97">
+<runner:RunnerConfiguration xmlns:runner="http://www.ibm.com/zUnit/4.0.0.0/TestRunner" id="33295c84-9bab-45b0-ac84-c59cabf573d8">
   <runner:options contOnTestCaseError="false" contOnTestCaseFail="true" contOnTestError="false" contOnTestFail="true" fileIOCapture="compat"/>
   <runner:testCase moduleName="TDFSIVA3">
     <test name="TEST1" entry="TEST_TEST1" type="DLIP" init="BZU_INIT" term="BZU_TERM" program="DFSIVP34" csect="DFSIVA34" commarea="0" skipTest="false" resetFile="true" stubCall="true" dummy="false" noPlaybackData="false"/>
+    <test name="TEST2" entry="TEST_TEST2" type="DLIP" init="BZU_INIT" term="BZU_TERM" program="DFSIVP34" csect="DFSIVA34" commarea="0" skipTest="false" resetFile="false" stubCall="true" dummy="false" noPlaybackData="false"/>
   </runner:testCase>
   <runner:intercept module="DFSIVP34" stub="false" csect="DFSIVA34" lengths="32,32" parmtype="I,I" retcode="true" exist="false"/>
   <runner:playback moduleName="DFSIVP34">

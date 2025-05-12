@@ -3,8 +3,8 @@
       *| TDFSIVA3                                                      |
       *| UNIT TEST FOR Z/OS: TEST CASE PROGRAM                         |
       *| TEST CASE VERSION: 202                                        |
-      *| DATE GENERATED: 05/09/2025 22:02                              |
-      *| ID: 548647a6-ff69-4c60-8045-10fdd54fb5c3                      |
+      *| DATE GENERATED: 05/09/2025 23:21                              |
+      *| ID: 0416fd4f-a403-4583-96e4-8f79d9d4f22c                      |
       *+---------------------------------------------------------------+
       *+---------------------------------------------------------------+
       *| UNIT TEST FOR Z/OS: TEST_TEST1                                |
@@ -160,6 +160,159 @@
            EXIT.
        END PROGRAM TEST_TEST1.
       *+---------------------------------------------------------------+
+      *| UNIT TEST FOR Z/OS: TEST_TEST2                                |
+      *|     FOR TEST TEST2                                            |
+      *| TEST CASE VERSION: 202                                        |
+      *+---------------------------------------------------------------+
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. 'TEST_TEST2'.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 PROGRAM-NAME   PIC X(8)  VALUE 'DFSIVP34'.
+       01 AZ-CSECT       PIC X(72) VALUE 'DFSIVA34'.
+       01 BZ-ASSERT.
+         03 MESSAGE-LEN PIC S9(4) COMP-4 VALUE 24.
+         03 MESSAGE-TXT PIC X(254) VALUE 'HELLO FROM TEST CALLBACK'.
+       01  BZ-P1 PIC S9(9) COMP-4 VALUE 4.
+       01  BZ-P2 PIC S9(9) COMP-4 VALUE 2001.
+       01  BZ-P3 PIC X(3) VALUE 'AZU'.
+       01 BZ-TRACE.
+         03 TRACE-LEN       PIC S9(4) COMP-4 VALUE 5.
+         03 TRACE-TXT       PIC X(254) VALUE 'TRACE'.
+       01 BZUASSRT          PIC X(8) VALUE 'BZUASSRT'.
+       01 BZUTRACE          PIC X(8) VALUE 'BZUTRACE'.
+       01 BZUGETEP          PIC X(8) VALUE 'BZUGETEP'.
+       01 AZ-EP-PTR         USAGE IS POINTER.
+       01 AZ-TRACE-PTR      POINTER.
+       01 ASSERT-ST.
+         03 ASSERT-RC PIC 9(9) BINARY VALUE 4.
+         03 ASSERT-TEXT PIC 9(4) BINARY VALUE 0.
+       01 AZ-TEST-NAME-LEN       PIC S9(9) COMP-5.
+       01 AZ-RC-WORK             PIC S9(4) USAGE BINARY.
+       01 AZ-SUB-GETARG     PIC X(8)  VALUE 'BZUGTARG'.
+       01 AZ-SUB-PROGRAM    PIC X(8)  VALUE 'DFSIVP34'.
+       01 AZ-SUB-CSECT      PIC X(72) VALUE 'DFSIVA34'.
+       01 AZ-SUB-ARG-LIST   USAGE POINTER.
+       LOCAL-STORAGE SECTION.
+       LINKAGE SECTION.
+       01 AZ-TEST                   PIC X(80).
+       01 AZ-ARG-LIST.
+         03 ARG-LENGTH PIC 9(4) COMP-4.
+         03 ARG-DATA PIC X(256).
+       01 AZ-INFO-BLOCK.
+         COPY EQAITERC.
+       01 AZ-PROC-PTR       USAGE IS PROCEDURE-POINTER.
+       1 AZ-PSB-ADDRS.
+           3 AZ-PCB1 POINTER.
+           3 AZ-PCB2 POINTER.
+      *  *** IOPCB : ZUT0000005D
+       1 ZUT0000005D.
+      *    *** LTERM-NAME : ZUT0000005E
+         2 ZUT0000005E PICTURE X(8).
+      *    *** FILLER : ZUT0000005F
+         2 ZUT0000005F PICTURE X(2).
+      *    *** TPSTATUS : ZUT00000060
+         2 ZUT00000060 PICTURE XX.
+      *    *** FILLER : ZUT00000061
+         2 ZUT00000061 PICTURE X(20).
+      *  *** DBPCB : ZUT00000062
+       1 ZUT00000062.
+      *    *** DBNAME : ZUT00000063
+         2 ZUT00000063 PICTURE X(8).
+      *    *** SEG-LEVEL-NO : ZUT00000064
+         2 ZUT00000064 PICTURE X(2).
+      *    *** DBSTATUS : ZUT00000065
+         2 ZUT00000065 PICTURE XX.
+      *    *** FILLER : ZUT00000066
+         2 ZUT00000066 PICTURE X(20).
+       01  AZ-SUB-PGM-LIST.
+         03  AZ-SUB-PGM-COUNT       PIC 9(4) COMP-4.
+         03  AZ-SUB-PGM-ADDRS  OCCURS 1 TO 100 TIMES
+                       DEPENDING ON AZ-SUB-PGM-COUNT.
+           05  AZ-SUB-PGM-ADDR      USAGE POINTER.
+           05  AZ-SUB-PGM-LGTH      PIC 9(8) COMP-4.
+       01  AZ-LINKPARM1             PIC X(32768).
+       01  AZ-LINKPARM2             PIC X(32768).
+       PROCEDURE DIVISION USING AZ-TEST AZ-PSB-ADDRS AZ-INFO-BLOCK.
+      * START
+           DISPLAY 'AZU0000I TEST_TEST2 STARTED...'
+           MOVE 0 TO AZ-TEST-NAME-LEN.
+           INSPECT AZ-TEST TALLYING AZ-TEST-NAME-LEN FOR
+           CHARACTERS BEFORE INITIAL SPACE.
+      * SET ADDRESS FOR IOPCB
+           SET ADDRESS OF ZUT0000005D TO AZ-PCB1
+      * SET ADDRESS FOR DBPCB
+           SET ADDRESS OF ZUT00000062 TO AZ-PCB2
+      * INITIALIZE PARAMETER
+           PERFORM INITIALIZE-PARM
+      * SET AREA ADDRESS TO POINTER
+      * GET SUB PROGRAM ARGUMENT
+           DISPLAY 'AZU0000I CALL BZUGTARG FOR DFSIVA34'
+           CALL AZ-SUB-GETARG USING AZ-SUB-PROGRAM AZ-SUB-CSECT
+             RETURNING AZ-SUB-ARG-LIST
+           IF AZ-SUB-ARG-LIST = NULL
+             MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+             STRING 'SUB PROGRAM DFSIVA34 NOT FOUND.'
+               DELIMITED BY SIZE
+               INTO MESSAGE-TXT OF BZ-ASSERT
+               WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+             END-STRING
+             SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+             PERFORM THROW-ASSERTION-M
+           ELSE
+              SET ADDRESS OF AZ-SUB-PGM-LIST TO AZ-SUB-ARG-LIST
+              IF AZ-SUB-PGM-COUNT NOT EQUAL 2
+                MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+                STRING 'SUB PROGRAM ARGUMENT COUNT DOES NOT MATCH.'
+                  DELIMITED BY SIZE
+                  INTO MESSAGE-TXT OF BZ-ASSERT
+                  WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+                END-STRING
+                SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+                PERFORM THROW-ASSERTION-M
+              END-IF
+           END-IF.
+      * SET INPUT VALUE
+           MOVE 0 TO RETURN-CODE.
+      * CALL TEST PROGRAM
+           DISPLAY 'AZU0000I CALL DFSIVP34 (CSECT:DFSIVA34)'
+           CALL BZUGETEP USING BY REFERENCE PROGRAM-NAME AZ-CSECT
+             RETURNING AZ-EP-PTR.
+           IF AZ-EP-PTR = NULL THEN
+             MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+             STRING 'UNABLE TO GET THE ENTRY POINT BY BZUGETEP.'
+               DELIMITED BY SIZE
+               INTO MESSAGE-TXT OF BZ-ASSERT
+               WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+             END-STRING
+             SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+             PERFORM THROW-ASSERTION-M
+             GOBACK
+           END-IF
+           SET ADDRESS OF AZ-PROC-PTR TO AZ-EP-PTR.
+           CALL AZ-PROC-PTR
+           USING BY VALUE AZ-PCB1 AZ-PCB2
+           .
+      * EVALUATE OUTPUT VALUE
+           MOVE 4 TO RETURN-CODE
+      * END
+           DISPLAY 'AZU0000I TEST_TEST2 END.'
+           GOBACK.
+       INITIALIZE-PARM.
+           EXIT.
+       THROW-ASSERTION-M.
+           DISPLAY 'AZU0000I *******************************************
+      -    '*************************************'
+           DISPLAY 'AZU2001W THE TEST "' AZ-TEST(1:AZ-TEST-NAME-LEN) '"
+      -    'FAILED DUE TO AN ASSERTION.'
+           DISPLAY 'AZU1101I ' MESSAGE-TXT OF BZ-ASSERT(1:MESSAGE-LEN
+           OF BZ-ASSERT)
+           DISPLAY 'AZU0000I *******************************************
+      -    '*************************************'
+           CALL BZUASSRT USING BZ-P1 BZ-P2 BZ-P3 BZ-ASSERT
+           EXIT.
+       END PROGRAM TEST_TEST2.
+      *+---------------------------------------------------------------+
       *| UNIT TEST FOR Z/OS: BZU_TEST                                  |
       *|     CALLBACK DEFINITION FOR TEST                              |
       *| TEST CASE VERSION: 202                                        |
@@ -255,6 +408,9 @@
            WHEN 'TEST1'
              PERFORM CHECK-REC-TEST1
              MOVE 4 TO RETURN-CODE
+           WHEN 'TEST2'
+             PERFORM CHECK-REC-TEST2
+             MOVE 4 TO RETURN-CODE
            WHEN OTHER
              CONTINUE
            END-EVALUATE.
@@ -265,6 +421,198 @@
            EXIT.
        CHECK-REC-TEST1.
       * CHECK RECORD COUNT FOR TEST1
+      * FOR CBLTDLI GU ''IOPCB''
+           MOVE 1 TO AZ-GRP-INDEX
+           MOVE 0 TO AZ-FLAG-IN
+           MOVE RETURN-CODE TO AZ-RC-WORK
+           CALL 'GTMEMRC' USING TC-WORK-AREA OF AZ-INFO-BLOCK
+             AZ-GRP-INDEX AZ-FLAG-IN AZ-RECORD-PTR
+           SET ADDRESS OF AZ-RECORD-COUNT TO AZ-RECORD-PTR
+           MOVE AZ-RC-WORK TO RETURN-CODE
+           IF AZ-RECORD-COUNT NOT EQUAL 1 THEN
+             MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+             MOVE AZ-RECORD-COUNT TO AZ-OUTPUT-COUNT-STR
+             STRING
+               'EXPECTED RECORD COUNT IS ''1''. '
+               'BUT REAL RECORD COUNT IS ''' AZ-OUTPUT-COUNT-STR ''''
+               ' IN CBLTDLI GU ''IOPCB''.'
+               DELIMITED BY SIZE INTO MESSAGE-TXT OF BZ-ASSERT
+               WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+             END-STRING
+             SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+             PERFORM THROW-ASSERTION-M
+           END-IF.
+      * FOR CBLTDLI GN ''IOPCB''
+           MOVE 2 TO AZ-GRP-INDEX
+           MOVE 0 TO AZ-FLAG-IN
+           MOVE RETURN-CODE TO AZ-RC-WORK
+           CALL 'GTMEMRC' USING TC-WORK-AREA OF AZ-INFO-BLOCK
+             AZ-GRP-INDEX AZ-FLAG-IN AZ-RECORD-PTR
+           SET ADDRESS OF AZ-RECORD-COUNT TO AZ-RECORD-PTR
+           MOVE AZ-RC-WORK TO RETURN-CODE
+           IF AZ-RECORD-COUNT NOT EQUAL 1 THEN
+             MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+             MOVE AZ-RECORD-COUNT TO AZ-OUTPUT-COUNT-STR
+             STRING
+               'EXPECTED RECORD COUNT IS ''1''. '
+               'BUT REAL RECORD COUNT IS ''' AZ-OUTPUT-COUNT-STR ''''
+               ' IN CBLTDLI GN ''IOPCB''.'
+               DELIMITED BY SIZE INTO MESSAGE-TXT OF BZ-ASSERT
+               WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+             END-STRING
+             SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+             PERFORM THROW-ASSERTION-M
+           END-IF.
+      * FOR CBLTDLI ISRT ''DBPCB''
+           MOVE 3 TO AZ-GRP-INDEX
+           MOVE 0 TO AZ-FLAG-IN
+           MOVE RETURN-CODE TO AZ-RC-WORK
+           CALL 'GTMEMRC' USING TC-WORK-AREA OF AZ-INFO-BLOCK
+             AZ-GRP-INDEX AZ-FLAG-IN AZ-RECORD-PTR
+           SET ADDRESS OF AZ-RECORD-COUNT TO AZ-RECORD-PTR
+           MOVE AZ-RC-WORK TO RETURN-CODE
+           IF AZ-RECORD-COUNT NOT EQUAL 0 THEN
+             MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+             MOVE AZ-RECORD-COUNT TO AZ-OUTPUT-COUNT-STR
+             STRING
+               'EXPECTED RECORD COUNT IS ''0''. '
+               'BUT REAL RECORD COUNT IS ''' AZ-OUTPUT-COUNT-STR ''''
+               ' IN CBLTDLI ISRT ''DBPCB''.'
+               DELIMITED BY SIZE INTO MESSAGE-TXT OF BZ-ASSERT
+               WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+             END-STRING
+             SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+             PERFORM THROW-ASSERTION-M
+           END-IF.
+      * FOR CBLTDLI GU ''DBPCB''
+           MOVE 4 TO AZ-GRP-INDEX
+           MOVE 0 TO AZ-FLAG-IN
+           MOVE RETURN-CODE TO AZ-RC-WORK
+           CALL 'GTMEMRC' USING TC-WORK-AREA OF AZ-INFO-BLOCK
+             AZ-GRP-INDEX AZ-FLAG-IN AZ-RECORD-PTR
+           SET ADDRESS OF AZ-RECORD-COUNT TO AZ-RECORD-PTR
+           MOVE AZ-RC-WORK TO RETURN-CODE
+           IF AZ-RECORD-COUNT NOT EQUAL 1 THEN
+             MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+             MOVE AZ-RECORD-COUNT TO AZ-OUTPUT-COUNT-STR
+             STRING
+               'EXPECTED RECORD COUNT IS ''1''. '
+               'BUT REAL RECORD COUNT IS ''' AZ-OUTPUT-COUNT-STR ''''
+               ' IN CBLTDLI GU ''DBPCB''.'
+               DELIMITED BY SIZE INTO MESSAGE-TXT OF BZ-ASSERT
+               WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+             END-STRING
+             SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+             PERFORM THROW-ASSERTION-M
+           END-IF.
+      * FOR CBLTDLI GHU ''DBPCB''
+           MOVE 5 TO AZ-GRP-INDEX
+           MOVE 0 TO AZ-FLAG-IN
+           MOVE RETURN-CODE TO AZ-RC-WORK
+           CALL 'GTMEMRC' USING TC-WORK-AREA OF AZ-INFO-BLOCK
+             AZ-GRP-INDEX AZ-FLAG-IN AZ-RECORD-PTR
+           SET ADDRESS OF AZ-RECORD-COUNT TO AZ-RECORD-PTR
+           MOVE AZ-RC-WORK TO RETURN-CODE
+           IF AZ-RECORD-COUNT NOT EQUAL 0 THEN
+             MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+             MOVE AZ-RECORD-COUNT TO AZ-OUTPUT-COUNT-STR
+             STRING
+               'EXPECTED RECORD COUNT IS ''0''. '
+               'BUT REAL RECORD COUNT IS ''' AZ-OUTPUT-COUNT-STR ''''
+               ' IN CBLTDLI GHU ''DBPCB''.'
+               DELIMITED BY SIZE INTO MESSAGE-TXT OF BZ-ASSERT
+               WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+             END-STRING
+             SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+             PERFORM THROW-ASSERTION-M
+           END-IF.
+      * FOR CBLTDLI REPL ''DBPCB''
+           MOVE 6 TO AZ-GRP-INDEX
+           MOVE 0 TO AZ-FLAG-IN
+           MOVE RETURN-CODE TO AZ-RC-WORK
+           CALL 'GTMEMRC' USING TC-WORK-AREA OF AZ-INFO-BLOCK
+             AZ-GRP-INDEX AZ-FLAG-IN AZ-RECORD-PTR
+           SET ADDRESS OF AZ-RECORD-COUNT TO AZ-RECORD-PTR
+           MOVE AZ-RC-WORK TO RETURN-CODE
+           IF AZ-RECORD-COUNT NOT EQUAL 0 THEN
+             MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+             MOVE AZ-RECORD-COUNT TO AZ-OUTPUT-COUNT-STR
+             STRING
+               'EXPECTED RECORD COUNT IS ''0''. '
+               'BUT REAL RECORD COUNT IS ''' AZ-OUTPUT-COUNT-STR ''''
+               ' IN CBLTDLI REPL ''DBPCB''.'
+               DELIMITED BY SIZE INTO MESSAGE-TXT OF BZ-ASSERT
+               WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+             END-STRING
+             SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+             PERFORM THROW-ASSERTION-M
+           END-IF.
+      * FOR CBLTDLI DLET ''DBPCB''
+           MOVE 7 TO AZ-GRP-INDEX
+           MOVE 0 TO AZ-FLAG-IN
+           MOVE RETURN-CODE TO AZ-RC-WORK
+           CALL 'GTMEMRC' USING TC-WORK-AREA OF AZ-INFO-BLOCK
+             AZ-GRP-INDEX AZ-FLAG-IN AZ-RECORD-PTR
+           SET ADDRESS OF AZ-RECORD-COUNT TO AZ-RECORD-PTR
+           MOVE AZ-RC-WORK TO RETURN-CODE
+           IF AZ-RECORD-COUNT NOT EQUAL 0 THEN
+             MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+             MOVE AZ-RECORD-COUNT TO AZ-OUTPUT-COUNT-STR
+             STRING
+               'EXPECTED RECORD COUNT IS ''0''. '
+               'BUT REAL RECORD COUNT IS ''' AZ-OUTPUT-COUNT-STR ''''
+               ' IN CBLTDLI DLET ''DBPCB''.'
+               DELIMITED BY SIZE INTO MESSAGE-TXT OF BZ-ASSERT
+               WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+             END-STRING
+             SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+             PERFORM THROW-ASSERTION-M
+           END-IF.
+      * FOR CBLTDLI ISRT ''IOPCB''
+           MOVE 8 TO AZ-GRP-INDEX
+           MOVE 0 TO AZ-FLAG-IN
+           MOVE RETURN-CODE TO AZ-RC-WORK
+           CALL 'GTMEMRC' USING TC-WORK-AREA OF AZ-INFO-BLOCK
+             AZ-GRP-INDEX AZ-FLAG-IN AZ-RECORD-PTR
+           SET ADDRESS OF AZ-RECORD-COUNT TO AZ-RECORD-PTR
+           MOVE AZ-RC-WORK TO RETURN-CODE
+           IF AZ-RECORD-COUNT NOT EQUAL 2 THEN
+             MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+             MOVE AZ-RECORD-COUNT TO AZ-OUTPUT-COUNT-STR
+             STRING
+               'EXPECTED RECORD COUNT IS ''2''. '
+               'BUT REAL RECORD COUNT IS ''' AZ-OUTPUT-COUNT-STR ''''
+               ' IN CBLTDLI ISRT ''IOPCB''.'
+               DELIMITED BY SIZE INTO MESSAGE-TXT OF BZ-ASSERT
+               WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+             END-STRING
+             SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+             PERFORM THROW-ASSERTION-M
+           END-IF.
+      * FOR CBLTDLI ISRT ''IOPCB''
+           MOVE 9 TO AZ-GRP-INDEX
+           MOVE 0 TO AZ-FLAG-IN
+           MOVE RETURN-CODE TO AZ-RC-WORK
+           CALL 'GTMEMRC' USING TC-WORK-AREA OF AZ-INFO-BLOCK
+             AZ-GRP-INDEX AZ-FLAG-IN AZ-RECORD-PTR
+           SET ADDRESS OF AZ-RECORD-COUNT TO AZ-RECORD-PTR
+           MOVE AZ-RC-WORK TO RETURN-CODE
+           IF AZ-RECORD-COUNT NOT EQUAL 0 THEN
+             MOVE 1 TO MESSAGE-LEN OF BZ-ASSERT
+             MOVE AZ-RECORD-COUNT TO AZ-OUTPUT-COUNT-STR
+             STRING
+               'EXPECTED RECORD COUNT IS ''0''. '
+               'BUT REAL RECORD COUNT IS ''' AZ-OUTPUT-COUNT-STR ''''
+               ' IN CBLTDLI ISRT ''IOPCB''.'
+               DELIMITED BY SIZE INTO MESSAGE-TXT OF BZ-ASSERT
+               WITH POINTER MESSAGE-LEN OF BZ-ASSERT
+             END-STRING
+             SUBTRACT 1 FROM MESSAGE-LEN OF BZ-ASSERT
+             PERFORM THROW-ASSERTION-M
+           END-IF.
+           EXIT.
+       CHECK-REC-TEST2.
+      * CHECK RECORD COUNT FOR TEST2
       * FOR CBLTDLI GU ''IOPCB''
            MOVE 1 TO AZ-GRP-INDEX
            MOVE 0 TO AZ-FLAG-IN
@@ -478,7 +826,7 @@
        WORKING-STORAGE SECTION.
        01 AZ-TEST-NAME-LEN      PIC S9(9) COMP-5.
        01 AZ-TESTCASE-ID        PIC X(36)
-           VALUE '548647a6-ff69-4c60-8045-10fdd54fb5c3'.
+           VALUE '0416fd4f-a403-4583-96e4-8f79d9d4f22c'.
        LINKAGE SECTION.
        01 AZ-TEST               PIC X(80).
        01 AZ-TEST-ID            PIC X(80).
