@@ -198,11 +198,4 @@
        end GSAM_ERROR;
 
 
-      Do Forever;
-
-
-        If (expression)
-          then Leave;
-
-      End;
  end fspivap;
