@@ -1,0 +1,1 @@
+       01 swedish-var pic x.

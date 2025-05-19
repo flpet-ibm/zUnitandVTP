@@ -11,6 +11,9 @@
        01  MY-CUST.
            COPY ADDICPY1.
 
+
+       copy ADDICPYÄ.
+
        01 MY-PGM PIC X(8).
        01 my-text  pic x(80).
        PROCEDURE DIVISION.
