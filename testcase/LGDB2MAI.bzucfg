@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<runner:RunnerConfiguration xmlns:runner="http://www.ibm.com/zUnit/4.0.0.0/TestRunner" id="c6b037cc-a8b7-4642-95fd-630871857191">
+  <runner:options contOnTestCaseError="false" contOnTestCaseFail="true" contOnTestError="false" contOnTestFail="true" fileIOCapture="compat"/>
+  <runner:testCase moduleName="TLGDB2MA">
+    <test name="dummy" entry="dummy" type="BTCH" init="dummy" term="dummy" program="LGDB2MAI" commarea="" skipTest="true" resetFile="true" stubCall="true" dummy="true" noPlaybackData="false"/>
+    <test name="TEST1" entry="TEST_TEST1" type="BTCH" init="BZU_INIT" term="BZU_TERM" program="LGDB2MAI" commarea="" skipTest="false" resetFile="false" stubCall="true" dummy="false" noPlaybackData="true"/>
+  </runner:testCase>
+  <runner:intercept module="LGDB2MAI" stub="false" lengths="" retcode="true" exist="false"/>
+  <runner:intercept module="LGDB2AGE" stub="true" lengths="10,7" parmtype="I,I" retcode="false" exist="false"/>
+  <runner:playback moduleName="LGDB2MAI"/>
+  <runner:fileAttributes hlqDdName="AZUHLQ"/>
+</runner:RunnerConfiguration>
