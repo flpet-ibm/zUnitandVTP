@@ -85,7 +85,7 @@
                    04  OUT-FIRST-NAME  PIC  X(10).                      00006300
                    04  OUT-EXTENSION   PIC  X(10).                      00006400
                    04  OUT-ZIP-CODE    PIC  X(7).                       00006500
-           02  OUT-SEGMENT-NO    PIC  9(4).                             00006600
+           02  OUT-SEGMENT-NO    PIC  9(4) value zero.                  00006600
            02  OUT-FILL          PIC  X(32) VALUE SPACES.               00006700
                                                                         00006800
       * DC TEXT FOR ERROR CALL                                          00006900
