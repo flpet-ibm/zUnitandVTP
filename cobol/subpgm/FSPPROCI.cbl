@@ -11,7 +11,7 @@
       *  US Government Users Restricted Rights - Use, duplication or  * 00000209
       *  disclosure restricted by GSA ADP Schedule contract with      * 00000210
       *  IBM Corp.                                                      00000211
-      *                                                                 00000212
+      *  update                                                         00000212
       *                                                               * 00000213
       * This sample is a refactored version of the IMS sample         * 00000214
       * IVP application DFSIVA64. The purpose of this refactored      * 00000215
