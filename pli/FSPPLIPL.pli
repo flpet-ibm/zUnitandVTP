@@ -1,4 +1,4 @@
-%PROCESS options,source,SYSTEM(IMS),macro ;
+%PROCESS options,source,SYSTEM(IMS),macro,OR('!');
  FSPIVAP: PROC (IOPCB_ptr, DBPCB_ptr, GIPCB_ptr, GOPCB_ptr)
                options(main);
      /*
