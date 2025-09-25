@@ -7,7 +7,7 @@
       *  Licensed Materials - Property of IBM                         *
       *                                                               *
       *  5635-A06                                                     *
-      *       xxxxxxXxxX                                              *
+      *       xxxxxxXxxXX                                             *
       *      Copyright IBM Corp. 1991,1998 All Rights Reserved        *
       *                                                               *
       *  US Government Users Restricted Rights - Use, duplication or  *
