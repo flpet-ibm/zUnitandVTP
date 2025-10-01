@@ -9,7 +9,7 @@
       *  5635-A06                                                     *
       *                                                               *
       *      Copyright IBM Corp. 1991,1998 All Rights Reserved        *
-      *                                                               *
+      *            x                                                  *
       *  US Government Users Restricted Rights - Use, duplication or  *
       *  disclosure restricted by GSA ADP Schedule contract with      *
       *  IBM Corp.                                                    *
