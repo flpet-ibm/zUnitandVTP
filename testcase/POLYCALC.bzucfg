@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<runner:RunnerConfiguration xmlns:runner="http://www.ibm.com/zUnit/4.0.0.0/TestRunner" id="af9a68cf-21b0-48e4-9b24-c99989edfc20">
+  <runner:options contOnTestCaseError="false" contOnTestCaseFail="true" contOnTestError="false" contOnTestFail="true" fileIOCapture="compat"/>
+  <runner:testCase moduleName="TPOLYCAL">
+    <test name="dummy" entry="dummy" type="BTCH" init="dummy" term="dummy" program="POLYCALC" commarea="" skipTest="true" resetFile="true" stubCall="true" dummy="true" noPlaybackData="false"/>
+    <test name="TEST1" entry="TEST_TEST1" type="BTCH" init="BZU_INIT" term="BZU_TERM" program="POLYCALC" commarea="" skipTest="false" resetFile="false" stubCall="true" dummy="false" noPlaybackData="true"/>
+    <test name="dummy" entry="dummy" type="BTCH" init="dummy" term="dummy" program="POLYCALC" commarea="" skipTest="true" resetFile="true" stubCall="true" dummy="true" noPlaybackData="false"/>
+    <test name="TEST2" entry="TEST_TEST2" type="BTCH" init="BZU_INIT" term="BZU_TERM" program="POLYCALC" commarea="" skipTest="false" resetFile="false" stubCall="true" dummy="false" noPlaybackData="true"/>
+  </runner:testCase>
+  <runner:intercept module="POLYCALC" stub="false" lengths="31" parmtype="I" retcode="true" exist="false"/>
+  <runner:playback moduleName="POLYCALC"/>
+  <runner:fileAttributes hlqDdName="AZUHLQ"/>
+</runner:RunnerConfiguration>
