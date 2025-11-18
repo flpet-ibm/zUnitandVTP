@@ -1,5 +1,13 @@
-name: "Test Configuration"
 version: "1.0.0"
+name: "Test Configuration"
+propertyGroups:
+  - name: cobol-copybooks
+    language: cobol
+    libraries:
+      - name: syslib
+        type: local
+        locations:
+          - "**/copybook"
 profiles:
 - name: "Test"
   type: "test"
