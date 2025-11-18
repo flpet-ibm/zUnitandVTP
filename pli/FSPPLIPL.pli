@@ -1,4 +1,4 @@
-%PROCESS options,source,SYSTEM(IMS),macro ;
+%PROCESS options,source,SYSTEM(IMS),macro,OR('!');
  FSPIVAP: PROC (IOPCB_ptr, DBPCB_ptr, GIPCB_ptr, GOPCB_ptr)
                options(main);
      /*
@@ -193,7 +193,7 @@
 
        GSAM_ERROR: proc;
            GS_ERROR_STATUS = GI_STATUS;
-           put skip list(GS_TEXT1 || GS_ERROR_STATUS || GS_TEXT2 ||
+           put skip list(GS_TEXT1 !! GS_ERROR_STATUS !! GS_TEXT2 !!
                          GS_ERROR_CALL);
        end GSAM_ERROR;
 

@@ -1,0 +1,9 @@
+           15  POLICY-NUMBER PIC X(10).
+           15  DRIVER-AGE    PIC 99.
+           15  CAR-VALUE     PIC 9(7)V99.
+           15  COVERAGE-LEVEL PIC X.
+               88  BASIC     VALUE 'B'.
+               88  STANDRD   VALUE 'S'.
+               88  PREMIUM   VALUE 'P'.
+           15  CALCULATED-PREMIUM PIC 9(5)V99.
+           15  RET-CODE     PIC X(2).

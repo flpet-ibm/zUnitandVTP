@@ -1,0 +1,20 @@
+           03 :DELIM:REQUEST-ID            PIC X(6).
+           03 :DELIM:RETURN-CODE           PIC 9(2).
+           03 :DELIM:CUSTOMER-NUM          PIC 9(10).
+           03 :DELIM:REQUEST-SPECIFIC      PIC X(32482).
+      *    Fields used in INQ All and ADD customer
+           03 :DELIM:CUSTOMER-REQUEST REDEFINES :DELIM:REQUEST-SPECIFIC.
+              05 :DELIM:FIRST-NAME         PIC X(10).
+              05 :DELIM:LAST-NAME          PIC X(20).
+              05 :DELIM:DOB                PIC X(10).
+              05 :DELIM:HOUSE-NAME         PIC X(20).
+              05 :DELIM:HOUSE-NUM          PIC X(4).
+              05 :DELIM:POSTCODE           PIC X(8).
+              05 :DELIM:NUM-POLICIES       PIC 9(3).
+              05 :DELIM:PHONE-MOBILE       PIC X(20).
+              05 :DELIM:PHONE-HOME         PIC X(20).
+              05 :DELIM:EMAIL-ADDRESS      PIC X(100).
+              05 :DELIM:POLICY-DATA        PIC X(32267).
+           03 :DELIM:POLICY-REQUEST REDEFINES :DELIM:REQUEST-SPECIFIC.
+              05 :DELIM:POLICY-TYPE        PIC X(10).
+              05 :DELIM:POLICY-DATE        PIC X(20).
